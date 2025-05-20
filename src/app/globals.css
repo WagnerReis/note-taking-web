@@ -70,6 +70,51 @@
     0px 1px 2px -1px rgba(0, 0, 0, 0.1);
   --shadow-large: 0px 4px 6px -1px rgba(0, 0, 0, 0.1),
     0px 2px 4px -1px rgba(0, 0, 0, 0.1);
+
+  --font-source-code-pro: var(--font-source-code-pro);
+  --font-noto-serif: var(--font-noto-serif);
+  --font-inter: var(--font-inter);
+
+
+}
+
+@layer base {
+  .text-preset-1 {
+    @apply text-[24px] leading-[120%] tracking-[-0.5px] font-bold;
+  }
+
+  .text-preset-2 {
+    @apply text-[20px] leading-[120%] tracking-[-0.5px] font-bold;
+  }
+
+  .text-preset-3 {
+    @apply text-[16px] leading-[120%] tracking-[-0.3px] font-semibold;
+  }
+
+  .text-preset-4 {
+    @apply text-[14px] leading-[120%] tracking-[-0.2px] font-medium;
+  }
+
+  .text-preset-5 {
+    @apply text-[14px] leading-[120%] tracking-[-0.2px] font-normal;
+  }
+
+  .text-preset-6 {
+    @apply text-[12px] leading-[120%] tracking-[-0.2px] font-normal;
+  }
+
+  /* Font Family Classes */
+  .font-source {
+    font-family: var(--font-source-code-pro);
+  }
+
+  .font-noto {
+    font-family: var(--font-noto-serif);
+  }
+
+  .font-inter {
+    font-family: var(--font-inter);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
