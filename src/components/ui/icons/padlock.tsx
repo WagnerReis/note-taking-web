@@ -1,4 +1,3 @@
-"use client";
 import { IconProps } from "@/types";
 import BaseIcon from "./base-icon";
 
