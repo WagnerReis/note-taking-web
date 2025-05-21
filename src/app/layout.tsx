@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { CustomThemeProvider } from "@/providers/custom-theme-provider";
 import { inter, notoSerif, sourceCodePro } from "./fonts";
+import ThemeToggle from "@/components/theme-toggle";
 
 export const metadata: Metadata = {
   title: "Note Taking App",
@@ -20,7 +21,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <CustomThemeProvider>{children}</CustomThemeProvider>
+        <CustomThemeProvider>
+          {children}
+          {/* Just to test */}
+          <ThemeToggle />
+        </CustomThemeProvider>
       </body>
     </html>
   );

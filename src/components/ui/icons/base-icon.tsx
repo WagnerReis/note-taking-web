@@ -16,7 +16,7 @@ export default function BaseIcon({ children, className }: BaseIconProps) {
   }, []);
 
   if (!mounted) return null;
-  console.log(className);
+
   return (
     <svg
       width={24}
