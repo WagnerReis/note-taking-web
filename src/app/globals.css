@@ -18,31 +18,30 @@
 
   /* Neutral Colors */
   --neutral-0: #ffffff;
-  --neutral-50: #f4f4f5;
-  --neutral-100: #e4e4e7;
-  --neutral-200: #d4d4d8;
-  --neutral-300: #a1a1aa;
-  --neutral-400: #71717a;
-  --neutral-500: #52525b;
-  --neutral-600: #3f3f46;
-  --neutral-700: #27272a;
-  --neutral-800: #18181b;
-  --neutral-900: #09090b;
-  --neutral-950: #040718;
+  --neutral-50: #F5F7FA;
+  --neutral-100: #F3F5F8;
+  --neutral-200: #E0E4EA;
+  --neutral-300: #CACFD8;
+  --neutral-400: #99A0AE;
+  --neutral-500: #717784;
+  --neutral-600: #525866;
+  --neutral-700: #2B303B;
+  --neutral-800: #232530;
+  --neutral-900: #191B25;
+  --neutral-950: #0E121B;
 
   /* Blue Colors */
-  --blue-50: #eff6ff;
-  --blue-100: #dbeafe;
-  --blue-500: #3b82f6;
-  --blue-700: #1d4ed8;
+  --blue-50: #EBF1FF;
+  --blue-500: #335CFF;
+  --blue-700: #2547D0;
 
   /* Green Colors */
-  --green-100: #dcfce7;
-  --green-500: #22c55e;
+  --green-100: #D1FBE9;
+  --green-500: #21C16B;
 
   /* Red Colors */
-  --red-100: #fee2e2;
-  --red-500: #ef4444;
+  --red-100: #FFD5D8;
+  --red-500: #FB3748;
 
   --spacing-0: 0px;
   --spacing-025: 2px;
@@ -132,16 +131,4 @@
 body {
   background: var(--background);
   color: var(--foreground);
-}
-
-*,
-::before,
-::after {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.3s;
-}
-
-svg {
-  transition: color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
 }
