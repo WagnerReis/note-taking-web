@@ -24,7 +24,6 @@ export default function BaseIcon({ children, className }: BaseIconProps) {
       viewBox={"0 0 24 24"}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      stroke="currentColor"
       className={clsx("text-neutral-900 dark:text-neutral-300", className)}
     >
       {children}
