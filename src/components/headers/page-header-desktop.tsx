@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 
 export function PageHeaderDesktop() {
   return (
-    <header className="flex items-center justify-between px-400 w-full h-[5.0625rem] border-b border-neutral-200 dark:border-neutral-900">
+    <header className="flex items-center justify-between px-400 w-full h-[5.0625rem] border-b border-neutral-200 dark:border-neutral-800">
       <h1 className="text-preset-1 text-neutral-950 dark:text-white">
         All Notes
       </h1>
