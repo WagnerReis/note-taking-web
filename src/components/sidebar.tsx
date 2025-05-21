@@ -3,6 +3,7 @@ import { useResponsive } from "@/hooks/use-responsive";
 
 export function Sidebar() {
   const { isDesktop } = useResponsive();
+
   return (
     <>
       {isDesktop && (

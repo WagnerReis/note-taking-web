@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { CustomThemeProvider } from "@/providers/custom-theme-provider";
 import { inter, notoSerif, sourceCodePro } from "./fonts";
 import ThemeToggle from "@/components/theme-toggle";
-import { PageHeader } from "@/components/headers/page-header";
-import { Sidebar } from "@/components/sidebar";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Note Taking App",
@@ -24,14 +22,7 @@ export default function RootLayout({
     >
       <body>
         <CustomThemeProvider>
-          <main className="w-full h-screen flex">
-            <Sidebar />
-            <div className="flex flex-col w-full">
-              <PageHeader />
-              {children}
-            </div>
-          </main>
-
+          <main className="w-full h-screen flex">{children}</main>
           {/* Just to test */}
           <ThemeToggle />
         </CustomThemeProvider>
