@@ -2,21 +2,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --background: var(--neutral-0);
-  --foreground: var(--neutral-950);
-}
-
-.dark {
-  --background: var(--neutral-950);
-  --foreground: var(--neutral-50);
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  /* Neutral Colors */
+@theme {
   --neutral-0: #ffffff;
   --neutral-50: #F5F7FA;
   --neutral-100: #F3F5F8;
@@ -42,6 +28,19 @@
   /* Red Colors */
   --red-100: #FFD5D8;
   --red-500: #FB3748;
+
+  --color-neutral-0: var(--neutral-0);
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
 
   --spacing-0: 0px;
   --spacing-025: 2px;
@@ -78,8 +77,23 @@
   --font-source-code-pro: var(--font-source-code-pro);
   --font-noto-serif: var(--font-noto-serif);
   --font-inter: var(--font-inter);
+}
 
+.dark {
+  --color-background: var(--neutral-950);
+  --color-foreground: var(--neutral-50);
+}
 
+@media (prefers-color-scheme: dark) {
+  .dark {
+    --color-background: var(--neutral-950);
+    --color-foreground: var(--neutral-50);
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
 }
 
 @layer base {
@@ -121,14 +135,8 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .dark {
-    --background: var(--neutral-950);
-    --foreground: var(--neutral-50);
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
