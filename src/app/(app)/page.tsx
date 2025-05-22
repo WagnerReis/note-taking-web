@@ -1,3 +1,3 @@
 export default function HomePage() {
-  return <div>content</div>;
+  return <div className="font-source-code-pro">content</div>;
 }
