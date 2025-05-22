@@ -1,17 +1,29 @@
+"use client";
 import { Preset1, Preset3, Preset5 } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
+import { Hide } from "@/components/ui/icons/hide";
 import { Logo } from "@/components/ui/icons/logo";
+import { Show } from "@/components/ui/icons/show";
+import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { twJoin } from "tailwind-merge";
+import { useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 export default function Login() {
+  const ref = useRef<HTMLInputElement>(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  function handleTogglePasswordVisibility() {
+    setIsPasswordVisible((prev) => !prev);
+  }
+
   return (
     <main
-      className={twJoin(
+      className={twMerge(
         "flex flex-col bg-white dark:bg-neutral-950 w-[343px] md:w-[540px]",
         "border border-neutral-200 dark:border-neutral-800 shadow-small px-200",
-        "items-center gap-4 py-600 rounded-16",
+        "items-center gap-4 py-600 rounded-16 md:px-600",
       )}
     >
       <Logo width={95} height={28} />
@@ -23,12 +35,27 @@ export default function Login() {
         </Preset5>
       </section>
 
-      <form action="" className="flex flex-col w-full">
-        <label htmlFor="email">Email Address</label>
-        <input type="email" id="email" placeholder="Email" />
+      <form action="" className="flex flex-col w-full gap-4">
+        <Input
+          label="Email Address"
+          type="email"
+          placeholder="example@email.com"
+          ref={ref}
+        />
 
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" placeholder="" />
+        <Input
+          label="Password"
+          type={isPasswordVisible ? "text" : "password"}
+          rightIcon={
+            !isPasswordVisible ? (
+              <Show className="w-5 h-5" />
+            ) : (
+              <Hide className="w-5 h-5" />
+            )
+          }
+          passwordToggleVisibility={handleTogglePasswordVisibility}
+          ref={ref}
+        />
 
         <Button intent="primary" text="Login" />
       </form>
@@ -39,7 +66,7 @@ export default function Login() {
           Or log in with:
         </Preset5>
 
-        <button className="flex gap-3 items-center justify-center border border-neutral-300 dark:border-0neutral-600 w-full h-[43px] rounded-12">
+        <button className="flex gap-3 items-center justify-center border border-neutral-300 dark:border-neutral-600 w-full h-[43px] rounded-12">
           <p>g</p>
           <Preset3 className="text-neutral-950 dark:text-white">Google</Preset3>
         </button>
