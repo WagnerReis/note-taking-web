@@ -16,6 +16,7 @@ const buttonStyles = cva("rounded-8  w-full h-11 cursor-pointer", {
         "focus:ring-offset-white",
         "dark:focus:ring-offset-neutral-950",
         "focus:ring-neutral-300",
+        "dark:focus:ring-neutral-500",
       ],
       secondary: ["bg-neutral-100"],
     },
