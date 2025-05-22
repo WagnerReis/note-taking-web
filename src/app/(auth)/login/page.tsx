@@ -1,4 +1,5 @@
 import { Preset1, Preset3, Preset5 } from "@/components/typography";
+import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { Logo } from "@/components/ui/icons/logo";
 import Link from "next/link";
@@ -8,7 +9,7 @@ export default function Login() {
   return (
     <main
       className={twJoin(
-        "flex flex-col bg-white dark:bg-neutral-950 w-[343px] lg:w-[540px]",
+        "flex flex-col bg-white dark:bg-neutral-950 w-[343px] md:w-[540px]",
         "border border-neutral-200 dark:border-neutral-800 shadow-small px-200",
         "items-center gap-4 py-600 rounded-16",
       )}
@@ -22,14 +23,14 @@ export default function Login() {
         </Preset5>
       </section>
 
-      <form action="" className="flex flex-col">
+      <form action="" className="flex flex-col w-full">
         <label htmlFor="email">Email Address</label>
         <input type="email" id="email" placeholder="Email" />
 
         <label htmlFor="password">Password</label>
         <input type="password" id="password" placeholder="" />
 
-        <button>Login</button>
+        <Button intent="primary" text="Login" />
       </form>
 
       <Divider />
