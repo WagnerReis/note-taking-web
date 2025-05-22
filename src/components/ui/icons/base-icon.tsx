@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useState, ReactNode } from "react";
+import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type BaseIconProps = {
@@ -16,14 +14,6 @@ export default function BaseIcon({
   width = 24,
   height = 24,
 }: BaseIconProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
     <svg
       width={width}
