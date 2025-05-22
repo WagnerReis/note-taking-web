@@ -3,6 +3,8 @@ import { forwardRef, InputHTMLAttributes, ReactNode, useState } from "react";
 import { twJoin, twMerge } from "tailwind-merge";
 import { Hide } from "./icons/hide";
 import { Show } from "./icons/show";
+import { InfoCircle } from "./icons/info-circle";
+import { Preset6 } from "../typography";
 
 type InputVariant = "default" | "error" | "focused" | "disabled";
 
@@ -53,6 +55,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       leftIcon,
       rightIcon,
       error,
+      hint,
       disabled,
       labelClassName = "",
       inputClassName = "",
@@ -189,6 +192,20 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               inputClassName,
             )}
           />
+
+          {hint && !error && (
+            <div className="flex items-center gap-100 text-neutral-600 dark:text-neutral-400">
+              <InfoCircle className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+              <Preset6>{hint}</Preset6>
+            </div>
+          )}
+
+          {error && (
+            <div className="flex items-center gap-100 text-red-600 dark:text-red-500">
+              <InfoCircle className="h-4 w-4 text-red-600 dark:text-red-500" />
+              <Preset6>{error}</Preset6>
+            </div>
+          )}
 
           {showPasswordToggle && type === "password" && (
             <button
