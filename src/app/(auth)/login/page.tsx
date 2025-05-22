@@ -4,13 +4,41 @@ import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { Logo } from "@/components/ui/icons/logo";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { GoogleLogo } from "phosphor-react";
-import { useRef } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
+
+const loginFormSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type LoginFormDataType = z.infer<typeof loginFormSchema>;
 
 export default function Login() {
-  const ref = useRef<HTMLInputElement>(null);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginFormDataType>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const emailError = errors.email?.message;
+  const passwordError = errors.password?.message;
+
+  function onSubmit(data: LoginFormDataType) {
+    console.log(data);
+    reset();
+  }
 
   return (
     <main
@@ -29,17 +57,27 @@ export default function Login() {
         </Preset5>
       </section>
 
-      <form action="" className="flex w-full flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex w-full flex-col gap-4"
+      >
         <Input
           label="Email Address"
           type="email"
           placeholder="email@example.com"
-          ref={ref}
+          error={emailError}
+          {...register("email")}
         />
 
-        <Input label="Password" type="password" showPasswordToggle ref={ref} />
+        <Input
+          label="Password"
+          type="password"
+          showPasswordToggle
+          error={passwordError}
+          {...register("password")}
+        />
 
-        <Button intent="primary" text="Login" />
+        <Button intent="primary" text="Login" type="submit" />
       </form>
 
       <Divider className="mt-1" />

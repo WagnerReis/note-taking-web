@@ -28,11 +28,16 @@ const buttonStyles = cva("rounded-8  w-full h-11 cursor-pointer", {
 
 interface ButtonProps extends VariantProps<typeof buttonStyles> {
   text: string;
+  type?: "button" | "submit";
 }
 
-export function Button({ intent, text, ...props }: ButtonProps) {
+export function Button({ intent, text, type, ...props }: ButtonProps) {
   return (
-    <button className={twMerge(buttonStyles({ intent }))} {...props}>
+    <button
+      type={type || "button"}
+      className={twMerge(buttonStyles({ intent }))}
+      {...props}
+    >
       <Preset3>{text}</Preset3>
     </button>
   );
