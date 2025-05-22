@@ -42,7 +42,7 @@ export default function Login() {
         <Button intent="primary" text="Login" />
       </form>
 
-      <Divider />
+      <Divider className="mt-1" />
       <section className="w-full space-y-4">
         <Preset5 className="text-center text-neutral-300 dark:text-neutral-600">
           Or log in with:
@@ -60,7 +60,7 @@ export default function Login() {
         </button>
       </section>
       <Divider />
-      <Preset5 className="text-neutral-300 dark:text-neutral-600">
+      <Preset5 className="mt-2 text-neutral-300 dark:text-neutral-600">
         No account yet?{" "}
         <Link href="/register" className="text-neutral-950 dark:text-white">
           Sign Up
