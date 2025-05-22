@@ -1,6 +1,8 @@
 "use client";
 import { forwardRef, InputHTMLAttributes, ReactNode, useState } from "react";
 import { twJoin, twMerge } from "tailwind-merge";
+import { Hide } from "./icons/hide";
+import { Show } from "./icons/show";
 
 type InputVariant = "default" | "error" | "focused" | "disabled";
 
@@ -27,6 +29,7 @@ enum InputVariantEnum {
  * @param passwordToggleVisibility Optional function to toggle password visibility
  */
 type InputProps = {
+  type: string;
   label?: string;
   placeholder?: string;
   hint?: string;
@@ -38,12 +41,13 @@ type InputProps = {
   variant?: InputVariant;
   labelClassName?: string;
   inputClassName?: string;
-  passwordToggleVisibility?: () => void;
+  showPasswordToggle?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
+      type,
       label,
       name,
       leftIcon,
@@ -52,12 +56,24 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       disabled,
       labelClassName = "",
       inputClassName = "",
-      passwordToggleVisibility,
+      showPasswordToggle,
       ...props
     },
     ref,
   ) => {
     const [isFocused, setIsFocused] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const inputType =
+      showPasswordToggle && type === "password"
+        ? showPassword
+          ? "text"
+          : "password"
+        : type;
+
+    const handleTogglePasswordVisibility = () => {
+      setShowPassword((prev) => !prev);
+    };
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
@@ -144,7 +160,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={twMerge("w-full", props.className)}>
-        <div className="relative w-full flex flex-col gap-1.5 transition-all duration-300 ease-in-out">
+        <div className="relative w-full flex flex-col gap-1.5">
           {label && (
             <label
               className={twMerge(
@@ -159,6 +175,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             name={name}
             ref={ref}
+            type={inputType}
             {...props}
             disabled={disabled}
             onFocus={handleFocus}
@@ -173,15 +190,29 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
           />
 
+          {showPasswordToggle && type === "password" && (
+            <button
+              className="absolute right-200 top-[44px] cursor-pointer"
+              type="button"
+              onClick={handleTogglePasswordVisibility}
+              tabIndex={-1}
+            >
+              {showPassword ? (
+                <Hide className="w-5 h-5" />
+              ) : (
+                <Show className="w-5 h-5" />
+              )}
+            </button>
+          )}
+
           {leftIcon && (
             <div className="absolute left-200 top-[41px]">{leftIcon}</div>
           )}
 
-          {rightIcon && (
+          {rightIcon && !showPasswordToggle && (
             <button
               className="absolute right-200 top-[41px] cursor-pointer"
               type="button"
-              onClick={passwordToggleVisibility}
             >
               {rightIcon}
             </button>

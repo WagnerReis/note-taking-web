@@ -2,21 +2,14 @@
 import { Preset1, Preset3, Preset5 } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
-import { Hide } from "@/components/ui/icons/hide";
 import { Logo } from "@/components/ui/icons/logo";
-import { Show } from "@/components/ui/icons/show";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 export default function Login() {
   const ref = useRef<HTMLInputElement>(null);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  function handleTogglePasswordVisibility() {
-    setIsPasswordVisible((prev) => !prev);
-  }
 
   return (
     <main
@@ -43,19 +36,7 @@ export default function Login() {
           ref={ref}
         />
 
-        <Input
-          label="Password"
-          type={isPasswordVisible ? "text" : "password"}
-          rightIcon={
-            !isPasswordVisible ? (
-              <Show className="w-5 h-5" />
-            ) : (
-              <Hide className="w-5 h-5" />
-            )
-          }
-          passwordToggleVisibility={handleTogglePasswordVisibility}
-          ref={ref}
-        />
+        <Input label="Password" type="password" showPasswordToggle ref={ref} />
 
         <Button intent="primary" text="Login" />
       </form>
