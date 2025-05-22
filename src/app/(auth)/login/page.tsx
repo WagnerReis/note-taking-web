@@ -14,21 +14,21 @@ export default function Login() {
   return (
     <main
       className={twMerge(
-        "flex flex-col bg-white dark:bg-neutral-950 w-[343px] md:w-[540px]",
-        "border border-neutral-200 dark:border-neutral-800 shadow-small px-200",
-        "items-center gap-4 py-600 rounded-16 md:px-600",
+        "flex w-[343px] flex-col bg-white md:w-[540px] dark:bg-neutral-950",
+        "shadow-small border border-neutral-200 px-200 dark:border-neutral-800",
+        "rounded-16 items-center gap-4 py-600 md:px-600",
       )}
     >
       <Logo width={95} height={28} />
 
       <section className="mt-2">
         <Preset1>Welcome to note</Preset1>
-        <Preset5 className="text-center text-neutral-600 dark:text-neutral-300 mt-2">
+        <Preset5 className="mt-2 text-center text-neutral-600 dark:text-neutral-300">
           Please log in to continue
         </Preset5>
       </section>
 
-      <form action="" className="flex flex-col w-full gap-4">
+      <form action="" className="flex w-full flex-col gap-4">
         <Input
           label="Email Address"
           type="email"
@@ -47,7 +47,7 @@ export default function Login() {
           Or log in with:
         </Preset5>
 
-        <button className="flex gap-3 items-center justify-center border border-neutral-300 dark:border-neutral-600 w-full h-[43px] rounded-12">
+        <button className="rounded-12 flex h-[43px] w-full items-center justify-center gap-3 border border-neutral-300 dark:border-neutral-600">
           <p>g</p>
           <Preset3 className="text-neutral-950 dark:text-white">Google</Preset3>
         </button>

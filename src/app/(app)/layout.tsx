@@ -9,7 +9,7 @@ export default function AppLayout({
   return (
     <>
       <Sidebar />
-      <div className="flex flex-col w-full">
+      <div className="flex w-full flex-col">
         <PageHeader />
         {children}
       </div>

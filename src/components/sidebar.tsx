@@ -7,7 +7,7 @@ export function Sidebar() {
   return (
     <>
       {isDesktop && (
-        <aside className="w-[272px] min-h-screen border-r border-neutral-200 dark:border-neutral-800">
+        <aside className="min-h-screen w-[272px] border-r border-neutral-200 dark:border-neutral-800">
           Sidebar
         </aside>
       )}

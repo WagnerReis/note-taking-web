@@ -22,7 +22,7 @@ export default function RootLayout({
     >
       <body>
         <CustomThemeProvider>
-          <main className="w-full h-screen flex">{children}</main>
+          <main className="flex h-screen w-full">{children}</main>
           {/* Just to test */}
           <ThemeToggle />
         </CustomThemeProvider>

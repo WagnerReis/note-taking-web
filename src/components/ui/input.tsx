@@ -160,7 +160,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={twMerge("w-full", props.className)}>
-        <div className="relative w-full flex flex-col gap-1.5">
+        <div className="relative flex w-full flex-col gap-1.5">
           {label && (
             <label
               className={twMerge(
@@ -181,9 +181,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             onFocus={handleFocus}
             onBlur={handleBlur}
             className={twMerge(
-              "min-h-[42px] py-150 px-200 rounded-8 text-preset-5 transition-all duration-200",
+              "text-preset-5 rounded-8 min-h-[42px] px-200 py-150 transition-all duration-200",
               "border border-neutral-300 dark:border-neutral-600",
-              leftIcon && "pl-[44px] pr-200",
+              leftIcon && "pr-200 pl-[44px]",
               rightIcon && "pr-[44px] pl-200",
               twJoin(getInputStyles()),
               inputClassName,
@@ -192,26 +192,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
           {showPasswordToggle && type === "password" && (
             <button
-              className="absolute right-200 top-[44px] cursor-pointer"
+              className="absolute top-[44px] right-200 cursor-pointer"
               type="button"
               onClick={handleTogglePasswordVisibility}
               tabIndex={-1}
             >
               {showPassword ? (
-                <Hide className="w-5 h-5" />
+                <Hide className="h-5 w-5" />
               ) : (
-                <Show className="w-5 h-5" />
+                <Show className="h-5 w-5" />
               )}
             </button>
           )}
 
           {leftIcon && (
-            <div className="absolute left-200 top-[41px]">{leftIcon}</div>
+            <div className="absolute top-[41px] left-200">{leftIcon}</div>
           )}
 
           {rightIcon && !showPasswordToggle && (
             <button
-              className="absolute right-200 top-[41px] cursor-pointer"
+              className="rounded-0 absolute top-[41px] right-200 cursor-pointer px-0"
               type="button"
             >
               {rightIcon}
