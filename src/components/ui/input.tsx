@@ -31,7 +31,7 @@ enum InputVariantEnum {
  * @param passwordToggleVisibility Optional function to toggle password visibility
  */
 type InputProps = {
-  type: string;
+  type?: string;
   label?: string;
   placeholder?: string;
   hint?: string;
@@ -49,7 +49,7 @@ type InputProps = {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      type,
+      type = "text",
       label,
       name,
       leftIcon,
@@ -105,8 +105,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         input: [
           // Text colors
           "text-neutral-950 dark:text-white",
+
           // Placeholder colors
           "placeholder-neutral-500 dark:placeholder-neutral-400",
+
+          // Hover
+          "hover:bg-neutral-50 dark:hover:bg-neutral-900",
         ],
       },
 
@@ -115,7 +119,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           // Background and border
           "bg-neutral-50 dark:bg-neutral-900",
           "border-neutral-200 dark:border-neutral-700",
-          "min-h-[42px]",
 
           // Text and placeholder
           "text-neutral-300 dark:text-neutral-600",
@@ -186,7 +189,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className={twMerge(
               "text-preset-5 rounded-8 min-h-[42px] px-200 py-150 transition-all duration-200",
               "border border-neutral-300 dark:border-neutral-600",
-              leftIcon && "pr-200 pl-[44px]",
+              leftIcon && "pr-200 pl-[46px]",
               rightIcon && "pr-[44px] pl-200",
               twJoin(getInputStyles()),
               inputClassName,
@@ -223,7 +226,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
 
           {leftIcon && (
-            <div className="absolute top-[41px] left-200">{leftIcon}</div>
+            <div className="absolute top-[calc(42px/2-10px)] left-200">
+              {leftIcon}
+            </div>
           )}
 
           {rightIcon && !showPasswordToggle && (

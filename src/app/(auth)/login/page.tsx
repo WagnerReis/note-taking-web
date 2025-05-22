@@ -48,7 +48,13 @@ export default function Login() {
           Or log in with:
         </Preset5>
 
-        <button className="rounded-12 flex h-[43px] w-full items-center justify-center gap-3 border border-neutral-300 dark:border-neutral-600">
+        <button
+          className={twMerge(
+            "rounded-12 flex h-[43px] w-full cursor-pointer",
+            "items-center justify-center gap-3 border border-neutral-300 dark:border-neutral-600",
+            "hover:bg-neutral-50 dark:hover:bg-neutral-900",
+          )}
+        >
           <GoogleLogo size={20} weight="bold" />
           <Preset3 className="text-neutral-950 dark:text-white">Google</Preset3>
         </button>
