@@ -5,6 +5,7 @@ import { Divider } from "@/components/ui/divider";
 import { Logo } from "@/components/ui/icons/logo";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { GoogleLogo } from "phosphor-react";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -32,7 +33,7 @@ export default function Login() {
         <Input
           label="Email Address"
           type="email"
-          placeholder="example@email.com"
+          placeholder="email@example.com"
           ref={ref}
         />
 
@@ -48,7 +49,7 @@ export default function Login() {
         </Preset5>
 
         <button className="rounded-12 flex h-[43px] w-full items-center justify-center gap-3 border border-neutral-300 dark:border-neutral-600">
-          <p>g</p>
+          <GoogleLogo size={20} weight="bold" />
           <Preset3 className="text-neutral-950 dark:text-white">Google</Preset3>
         </button>
       </section>
