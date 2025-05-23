@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 import { Preset3 } from "../typography";
 
-const buttonStyles = cva("rounded-8  w-full h-11 cursor-pointer", {
+const buttonStyles = cva("rounded-8  w-full h-11 cursor-custom", {
   variants: {
     intent: {
       primary: [

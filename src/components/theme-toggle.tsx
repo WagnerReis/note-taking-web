@@ -20,7 +20,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="absolute right-4 bottom-4 cursor-pointer"
+      className="cursor-custom absolute right-4 bottom-4"
     >
       {theme === "light" ? "🌙" : "🌞"}
     </button>

@@ -100,7 +100,7 @@ export default function LoginPage() {
 
         <button
           className={twMerge(
-            "rounded-12 flex h-[43px] w-full cursor-pointer",
+            "rounded-12 cursor-custom flex h-[43px] w-full",
             "items-center justify-center gap-3 border border-neutral-300 dark:border-neutral-600",
             "hover:bg-neutral-50 dark:hover:bg-neutral-900",
           )}
@@ -112,7 +112,10 @@ export default function LoginPage() {
       <Divider />
       <Preset5 className="mt-2 text-neutral-300 dark:text-neutral-600">
         No account yet?{" "}
-        <Link href="/register" className="text-neutral-950 dark:text-white">
+        <Link
+          href="/register"
+          className="cursor-custom text-neutral-950 dark:text-white"
+        >
           Sign Up
         </Link>
       </Preset5>

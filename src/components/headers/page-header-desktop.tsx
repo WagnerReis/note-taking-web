@@ -11,11 +11,11 @@ export function PageHeaderDesktop() {
 
       <div className="flex items-center gap-6">
         <Input
-          leftIcon={<Search className="cursor-pointer" />}
+          leftIcon={<Search className="cursor-custom" />}
           placeholder="Search by title, content, or tags…"
         />
         <div className="flex h-10 w-10 items-center justify-center">
-          <Setting className="cursor-pointer hover:opacity-[0.7]" />
+          <Setting className="cursor-custom hover:opacity-[0.7]" />
         </div>
       </div>
     </header>

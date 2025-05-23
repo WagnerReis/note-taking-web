@@ -2,6 +2,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+.cursor-custom {
+  cursor: url('/cursor-hover.svg'), auto;
+}
+
 :root {
   --background: var(--neutral-0);
   --foreground: var(--neutral-950);
