@@ -6,8 +6,9 @@ import { Logo } from "@/components/ui/icons/logo";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { GoogleLogo } from "phosphor-react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
@@ -32,12 +33,23 @@ export default function Login() {
     },
   });
 
+  const router = useRouter();
+
   const emailError = errors.email?.message;
   const passwordError = errors.password?.message;
 
-  function onSubmit(data: LoginFormDataType) {
-    console.log(data);
+  async function onSubmit(data: LoginFormDataType) {
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      credentials: "include",
+    });
+
     reset();
+    router.push("/");
   }
 
   return (
