@@ -188,7 +188,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             onBlur={handleBlur}
             className={twMerge(
               "text-preset-5 rounded-8 min-h-[42px] px-200 py-150 transition-all duration-200",
-              "border border-neutral-300 dark:border-neutral-600",
+              "cursor-custom border border-neutral-300 dark:border-neutral-600",
               leftIcon && "pr-200 pl-[46px]",
               rightIcon && "pr-[44px] pl-200",
               twJoin(getInputStyles()),
@@ -212,7 +212,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
           {showPasswordToggle && type === "password" && (
             <button
-              className="absolute top-[44px] right-200 cursor-pointer"
+              className="cursor-custom absolute top-[44px] right-200"
               type="button"
               onClick={handleTogglePasswordVisibility}
               tabIndex={-1}
@@ -233,7 +233,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
           {rightIcon && !showPasswordToggle && (
             <button
-              className="rounded-0 absolute top-[41px] right-200 cursor-pointer px-0"
+              className="rounded-0 cursor-custom absolute top-[41px] right-200 px-0"
               type="button"
             >
               {rightIcon}
