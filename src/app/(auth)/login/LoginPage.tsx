@@ -52,6 +52,10 @@ export default function LoginPage() {
     router.push("/");
   }
 
+  async function handleGoogleLogin() {
+    window.location.href = "http://localhost:3000/api/auth/google";
+  }
+
   return (
     <main
       className={twMerge(
@@ -103,6 +107,8 @@ export default function LoginPage() {
             "items-center justify-center gap-3 border border-neutral-300 dark:border-neutral-600",
             "hover:bg-neutral-50 dark:hover:bg-neutral-900",
           )}
+          type="button"
+          onClick={handleGoogleLogin}
         >
           <GoogleLogo size={20} weight="bold" />
           <Preset3 className="text-neutral-950 dark:text-white">Google</Preset3>
