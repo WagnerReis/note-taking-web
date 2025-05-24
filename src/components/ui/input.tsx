@@ -136,12 +136,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           "focus:ring-2",
           "focus:ring-offset-4",
           "focus:ring-offset-white dark:focus:ring-offset-neutral-950",
-          "focus:ring-neutral-300 dark:focus:ring-neutral-500",
+          "focus:ring-neutral-300 dark:focus:ring-neutral-600",
         ],
       },
 
       error: {
         input: [
+          // Background
+          "bg-neutral-50 dark:bg-neutral-800",
           // Border
           "border-red-500 dark:border-red-400",
 
@@ -149,7 +151,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           "text-neutral-950 dark:text-white",
 
           // Placeholder colors
-          "placeholder-neutral-500 dark:placeholder-neutral-400",
+          "placeholder-neutral-500 dark:placeholder-neutral-800",
         ],
       },
     };
