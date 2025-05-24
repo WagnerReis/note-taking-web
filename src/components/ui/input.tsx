@@ -4,7 +4,7 @@ import { twJoin, twMerge } from "tailwind-merge";
 import { Hide } from "./icons/hide";
 import { Show } from "./icons/show";
 import { InfoCircle } from "./icons/info-circle";
-import { Preset6 } from "../typography";
+import { Preset6 } from "../Typography";
 import Link from "next/link";
 
 type InputVariant = "default" | "error" | "focused" | "disabled";

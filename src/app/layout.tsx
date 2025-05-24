@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CustomThemeProvider } from "@/providers/custom-theme-provider";
 import { inter, notoSerif, sourceCodePro } from "./fonts";
-import ThemeToggle from "@/components/theme-toggle";
+import ThemeToggle from "@/components/ThemeToggle";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -23,6 +23,7 @@ export default function RootLayout({
       <body>
         <CustomThemeProvider>
           <main className="flex h-screen w-full">{children}</main>
+
           {/* Just to test */}
           <ThemeToggle />
         </CustomThemeProvider>

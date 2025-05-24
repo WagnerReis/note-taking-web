@@ -1,4 +1,4 @@
-import { Preset1, Preset3, Preset5 } from "@/components/typography";
+import { Preset1, Preset3, Preset5 } from "@/components/Typography";
 import { Divider } from "@/components/ui/divider";
 import { Logo } from "@/components/ui/icons/logo";
 import { GoogleLogo } from "phosphor-react";

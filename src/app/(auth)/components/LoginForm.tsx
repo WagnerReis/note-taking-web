@@ -1,5 +1,5 @@
 "use client";
-import { Preset5 } from "@/components/typography";
+import { Preset5 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
