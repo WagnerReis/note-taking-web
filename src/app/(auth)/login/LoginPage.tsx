@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { GoogleLogo } from "phosphor-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
@@ -21,6 +22,7 @@ type LoginFormDataType = z.infer<typeof loginFormSchema>;
 
 export default function LoginPage() {
   const router = useRouter();
+  const [credentialsError, setCredentialsError] = useState("");
 
   const {
     register,
@@ -39,17 +41,24 @@ export default function LoginPage() {
   const passwordError = errors.password?.message;
 
   async function onSubmit(data: LoginFormDataType) {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include",
       },
-      body: JSON.stringify(data),
-      credentials: "include",
-    });
+    );
 
-    reset();
-    router.push("/");
+    if (response.status === 200) {
+      reset();
+      router.push("/");
+    }
+
+    setCredentialsError("Invalid email or password");
   }
 
   async function handleGoogleLogin() {
@@ -91,6 +100,12 @@ export default function LoginPage() {
           error={passwordError}
           {...register("password")}
         />
+
+        {credentialsError && (
+          <Preset5 className="mt-2 text-center text-red-500">
+            {credentialsError}
+          </Preset5>
+        )}
 
         <Button intent="primary" text="Login" type="submit" />
       </form>
