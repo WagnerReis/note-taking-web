@@ -4,19 +4,19 @@ import { AuthFormContainer } from "../components/AuthFormContainer";
 import { LoginForm } from "../components/LoginForm";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <AuthFormContainer
-      title="Welcome to note"
-      subtitle="Please log in to continue"
+      title="Create Your Account"
+      subtitle="Sign up to start organizing your notes and boost your productivity."
       footer={
         <Preset5 className="mt-2 text-neutral-300 dark:text-neutral-600">
-          No account yet?{" "}
+          Already have an account?{" "}
           <Link
-            href="/register"
+            href="/login"
             className="cursor-custom text-neutral-950 dark:text-white"
           >
-            Sign Up
+            Login
           </Link>
         </Preset5>
       }
