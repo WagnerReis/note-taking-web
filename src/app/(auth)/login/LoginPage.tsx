@@ -75,9 +75,9 @@ export default function LoginPage() {
     >
       <Logo width={95} height={28} />
 
-      <section className="mt-2">
+      <section className="mt-2 text-center">
         <Preset1>Welcome to note</Preset1>
-        <Preset5 className="mt-2 text-center text-neutral-600 dark:text-neutral-300">
+        <Preset5 className="mt-2 text-neutral-600 dark:text-neutral-300">
           Please log in to continue
         </Preset5>
       </section>
