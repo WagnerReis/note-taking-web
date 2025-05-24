@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { cn } from "@/lib/utils";
 import { useFont } from "@/contexts/font-context";
+import { twMerge } from "tailwind-merge";
 
 interface TypographyProps {
   children: ReactNode;
@@ -14,7 +14,13 @@ export function Typography({ children, className, preset }: TypographyProps) {
   const { fontFamily } = useFont();
 
   return (
-    <p className={cn(`text-preset-${preset}`, `font-${fontFamily}`, className)}>
+    <p
+      className={twMerge(
+        `text-preset-${preset}`,
+        `font-${fontFamily}`,
+        className,
+      )}
+    >
       {children}
     </p>
   );

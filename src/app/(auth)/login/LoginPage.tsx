@@ -97,6 +97,7 @@ export default function LoginPage() {
           label="Password"
           type="password"
           showPasswordToggle
+          isLogin
           error={passwordError}
           {...register("password")}
         />
