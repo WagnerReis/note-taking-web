@@ -3,6 +3,8 @@ import { CustomThemeProvider } from "@/providers/custom-theme-provider";
 import { inter, notoSerif, sourceCodePro } from "./fonts";
 import ThemeToggle from "@/components/ThemeToggle";
 import "./globals.css";
+import { MenuBar } from "@/components/navigation/menu-bar/MenuBar";
+import { FontProvider } from "@/contexts/font-context";
 
 export const metadata: Metadata = {
   title: "Note Taking App",
@@ -22,10 +24,12 @@ export default function RootLayout({
     >
       <body>
         <CustomThemeProvider>
-          <main className="flex h-screen w-full">{children}</main>
-
-          {/* Just to test */}
-          <ThemeToggle />
+          <FontProvider>
+            <main className="flex h-[100vh]">{children}</main>
+            <MenuBar />
+            {/* Just to test */}
+          </FontProvider>
+          
         </CustomThemeProvider>
       </body>
     </html>
