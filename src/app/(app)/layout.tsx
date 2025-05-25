@@ -1,5 +1,5 @@
-import { PageHeader } from "@/components/headers/page-header";
-import { Sidebar } from "@/components/sidebar";
+import { PageHeader } from "@/components/headers/PageHeader";
+import { Sidebar } from "@/components/Sidebar";
 
 export default function AppLayout({
   children,

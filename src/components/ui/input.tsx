@@ -4,7 +4,8 @@ import { twJoin, twMerge } from "tailwind-merge";
 import { Hide } from "./icons/hide";
 import { Show } from "./icons/show";
 import { InfoCircle } from "./icons/info-circle";
-import { Preset6 } from "../typography";
+import { Preset6 } from "../Typography";
+import Link from "next/link";
 
 type InputVariant = "default" | "error" | "focused" | "disabled";
 
@@ -41,6 +42,7 @@ type InputProps = {
   rightIcon?: ReactNode;
   disabled?: boolean;
   variant?: InputVariant;
+  isLogin?: boolean;
   labelClassName?: string;
   inputClassName?: string;
   showPasswordToggle?: boolean;
@@ -57,6 +59,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       error,
       hint,
       disabled,
+      isLogin,
       labelClassName = "",
       inputClassName = "",
       showPasswordToggle,
@@ -170,14 +173,25 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className={twMerge("w-full", props.className)}>
         <div className="relative flex w-full flex-col gap-1.5">
           {label && (
-            <label
-              className={twMerge(
-                "text-preset-4 text-neutral-950 dark:text-white",
-                labelClassName,
+            <div className="flex items-end">
+              <label
+                className={twMerge(
+                  "text-preset-4 text-neutral-950 dark:text-white",
+                  labelClassName,
+                )}
+              >
+                {label}
+              </label>
+
+              {isLogin && (
+                <Link
+                  href="/forgot-password"
+                  className="cursor-custom ml-auto text-neutral-600 underline underline-offset-4 dark:text-neutral-400"
+                >
+                  <Preset6>Forgot</Preset6>
+                </Link>
               )}
-            >
-              {label}
-            </label>
+            </div>
           )}
 
           <input

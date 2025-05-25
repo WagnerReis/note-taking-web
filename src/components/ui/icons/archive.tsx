@@ -9,24 +9,28 @@ export function Archive(props: IconProps) {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        stroke="currentColor"
       />
       <path
         d="M15 14L11.9982 17L9 14"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        stroke="currentColor"
       />
       <path
         d="M11.998 17V10"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        stroke="currentColor"
       />
       <path
         d="M20.9336 7H3.05859"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        stroke="currentColor"
       />
     </BaseIcon>
   );

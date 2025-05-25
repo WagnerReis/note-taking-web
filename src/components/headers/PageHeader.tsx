@@ -1,6 +1,6 @@
 "use client";
-import { PageHeaderDesktop } from "./page-header-desktop";
-import { PageHeaderCompact } from "./page-header-compact";
+import { PageHeaderDesktop } from "./PageHeaderDesktop";
+import { PageHeaderCompact } from "./PageHeaderCompact";
 import { useResponsive } from "@/hooks/use-responsive";
 
 export function PageHeader() {

@@ -1,4 +1,4 @@
-import ThemeToggle from "@/components/theme-toggle";
+import ThemeToggle from "@/components/ThemeToggle";
 import { FontProvider } from "@/contexts/font-context";
 
 export default function AuthLayout({
