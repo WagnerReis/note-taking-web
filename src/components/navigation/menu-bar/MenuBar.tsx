@@ -1,12 +1,12 @@
 "use client";
 import { useResponsive } from "@/hooks/use-responsive";
-import { Home } from "../../ui/icons/home";
-import { Search } from "../../ui/icons/search";
-import { Archive } from "../../ui/icons/archive";
-import { Tag } from "../../ui/icons/tag";
-import { Setting } from "../../ui/icons/setting";
 import {  useState } from "react";
 import { MenuItem } from "./MenuItem";
+import { Home } from "@/components/ui/icons/home";
+import { Search } from "@/components/ui/icons/search";
+import { Archive } from "@/components/ui/icons/archive";
+import { Tag } from "@/components/ui/icons/tag";
+import { Setting } from "@/components/ui/icons/setting";
 
 
 export function MenuBar() {
