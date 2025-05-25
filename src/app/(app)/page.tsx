@@ -1,3 +1,11 @@
+"use client";
+
+import { SidebarAllNotes } from "@/components/SidebarAllNotes";
+import { useResponsive } from "@/hooks/use-responsive";
+
 export default function HomePage() {
-  return <div className="font-source-code-pro">content</div>;
+  const {isDesktop } = useResponsive()
+  return <main className="h-screen">
+    {isDesktop && <SidebarAllNotes />}
+  </main>;
 }
