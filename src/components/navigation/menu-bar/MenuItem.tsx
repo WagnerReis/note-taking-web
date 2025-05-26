@@ -1,6 +1,6 @@
+import { Preset6 } from "@/components/Typography";
 import { cloneElement, MouseEventHandler, ReactElement } from "react";
 import { twMerge } from "tailwind-merge";
-import { Preset6 } from "../../Typography";
 
 interface MenuItemProps {
   icon: ReactElement<any, any>;
