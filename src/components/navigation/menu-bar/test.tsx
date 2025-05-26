@@ -10,12 +10,12 @@ import { Setting } from "@/components/ui/icons/setting";
 import { useIsMounted } from "@/hooks/use-is-mounted";
 
 
-export function MenuBar() {
+export function Text() {
   const { isMobile, isTablet } = useResponsive();
   const [selected, setSelected] = useState("");
   const isMounted = useIsMounted();
 
-  if (!isMounted) {
+  if (!isMobile) {
     return null
   }
 
