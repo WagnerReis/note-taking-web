@@ -6,10 +6,9 @@ import { Archive } from "../../ui/icons/archive";
 import { Divider } from "../../ui/divider";
 import { useCallback, useState } from "react";
 import { Preset4 } from "../../Typography";
-import { SidbarItem } from "./SidbarItem";
-import { NavItem } from "./NavItem";
-import Link from "next/link";
 import { Tag } from "@/components/ui/icons/tag";
+import { SidebarItem } from "./SidebarItem";
+import Link from "next/link";
 
 const TAGS_MOCK = ["Cooking", "Dev", "Fitness", "Health", "Personal", "React", "Recipes", "Shopping", "Travel", "Typescript"];
 
@@ -42,7 +41,8 @@ export function Sidebar() {
       {isDesktop && (
         <aside className="min-h-screen w-[272px] border-r border-neutral-200 dark:border-neutral-800 px-200 transition ease-in-out duration-200">
           <header className="mt-300">
-            <button 
+            <Link
+              href="/"
               className="cursor-custom border-none"
               onClick={() => {
                 setSelectedTag("")
@@ -50,10 +50,10 @@ export function Sidebar() {
               }}
             >
               <Logo width={95} height={28} className="text-neutral-950 dark:text-white" />
-            </button>
+            </Link>
             <nav className="flex flex-col mt-4">
               {navItems.map((item) => (
-                <SidbarItem
+                <SidebarItem
                   key={item.label}
                   icon={item.icon}
                   label={item.label}
@@ -71,7 +71,7 @@ export function Sidebar() {
               {TAGS_MOCK.map(tag => {
                 const isTagSelected = selectedTag === tag
                 return (
-                  <SidbarItem key={tag} icon={<Tag />} label={tag} isActive={isTagSelected} onActive={() => handleTagClick(tag)} />
+                  <SidebarItem key={tag} icon={<Tag />} label={tag} isActive={isTagSelected} onActive={() => handleTagClick(tag)} />
                 )
               })}
             </div>

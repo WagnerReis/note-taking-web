@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Search } from "../ui/icons/search";
 import { Setting } from "../ui/icons/setting";
 import { Input } from "../ui/input";
@@ -14,9 +15,9 @@ export function PageHeaderDesktop() {
           leftIcon={<Search className="cursor-custom" />}
           placeholder="Search by title, content, or tags…"
         />
-        <div className="flex h-10 w-10 items-center justify-center">
+        <Link href="/settings" className="flex h-10 w-10 items-center justify-center">
           <Setting className="cursor-custom hover:opacity-[0.7]" />
-        </div>
+        </Link>
       </div>
     </header>
   );
