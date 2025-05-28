@@ -11,7 +11,7 @@ interface TagItemProps {
 
 export function TagItem({ tag, isTagSelected, onTagSelected }: TagItemProps) {
   return (
-    <button key={tag}
+    <button
       onClick={onTagSelected}
       className={twMerge("py-[10px] px-150 flex gap-2 text-neutral-700 dark:text-neutral-200 items-center cursor-custom rounded-8",
         isTagSelected && "bg-neutral-100 dark:bg-neutral-800"

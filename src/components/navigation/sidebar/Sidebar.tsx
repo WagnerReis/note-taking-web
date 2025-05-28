@@ -41,9 +41,15 @@ export function Sidebar() {
       {isDesktop && (
         <aside className="min-h-screen w-[272px] border-r border-neutral-200 dark:border-neutral-800 px-200 transition ease-in-out duration-200">
           <header className="mt-300">
-            <Link href="/" className="cursor-custom">
+            <button 
+              className="cursor-custom border-none"
+              onClick={() => {
+                setSelectedTag("")
+                setSelectedNav("All Notes")
+              }}
+            >
               <Logo width={95} height={28} className="text-neutral-950 dark:text-white" />
-            </Link>
+            </button>
             <nav className="flex flex-col mt-4">
               {navItems.map((item) => (
                 <NavItem
