@@ -1,6 +1,6 @@
 "use client";
 import { useResponsive } from "@/hooks/use-responsive";
-import { useEffect, useState } from "react";
+import { ReactElement, ReactNode, useState } from "react";
 import { MenuItem } from "./MenuItem";
 import { Home } from "@/components/ui/icons/home";
 import { Search } from "@/components/ui/icons/search";
@@ -8,7 +8,13 @@ import { Archive } from "@/components/ui/icons/archive";
 import { Tag } from "@/components/ui/icons/tag";
 import { Setting } from "@/components/ui/icons/setting";
 import { useIsMounted } from "@/hooks/use-is-mounted";
+import Link from "next/link";
 
+interface MenuBarItemProps {
+  icon: ReactElement<any, any>;
+  label: string;
+  redirect: string;
+}
 
 export function MenuBar() {
   const { isMobile, isTablet } = useResponsive();
@@ -19,26 +25,31 @@ export function MenuBar() {
     return null
   }
 
-  const listItems = [
+  const listItems: MenuBarItemProps[] = [
     {
       icon: <Home />,
-      text: "Home",
+      label: "Home",
+      redirect: "/"
     },
     {
       icon: <Search />,
-      text: "Search",
+      label: "Search",
+      redirect: "/"
     },
     {
       icon: <Archive />,
-      text: "Archive",
+      label: "Archive",
+      redirect: "/"
     },
     {
       icon: <Tag />,
-      text: "Tag",
+      label: "Tag",
+      redirect: "/"
     },
     {
       icon: <Setting />,
-      text: "Setting",
+      label: "Setting",
+      redirect: "/settings"
     },
   ];
 
@@ -49,13 +60,14 @@ export function MenuBar() {
           <ul className="flex h-full w-full items-center justify-center">
             {listItems.map((item) => (
               <MenuItem
-                key={item.text}
+                key={item.label}
                 icon={item.icon}
-                label={item.text}
-                isActive={item.text === selected}
-                onClick={() => setSelected(item.text)}
+                label={item.label}
+                isActive={item.label === selected}
+                onClick={() => setSelected(item.label)}
                 showLabel={isTablet}
                 isTablet={isTablet}
+                redirectPath={item.redirect}
               />
             ))}
           </ul>
