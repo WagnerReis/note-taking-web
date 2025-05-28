@@ -6,9 +6,10 @@ import { Archive } from "../../ui/icons/archive";
 import { Divider } from "../../ui/divider";
 import { useCallback, useState } from "react";
 import { Preset4 } from "../../Typography";
-import { TagItem } from "./TagItem";
+import { SidbarItem } from "./SidbarItem";
 import { NavItem } from "./NavItem";
 import Link from "next/link";
+import { Tag } from "@/components/ui/icons/tag";
 
 const TAGS_MOCK = ["Cooking", "Dev", "Fitness", "Health", "Personal", "React", "Recipes", "Shopping", "Travel", "Typescript"];
 
@@ -52,12 +53,12 @@ export function Sidebar() {
             </button>
             <nav className="flex flex-col mt-4">
               {navItems.map((item) => (
-                <NavItem
+                <SidbarItem
                   key={item.label}
                   icon={item.icon}
                   label={item.label}
                   isActive={item.label === selectedNav}
-                  onClick={() => handleNavClick(item.label)}
+                  onActive={() => handleNavClick(item.label)}
                 />
               ))}
             </nav>
@@ -70,7 +71,7 @@ export function Sidebar() {
               {TAGS_MOCK.map(tag => {
                 const isTagSelected = selectedTag === tag
                 return (
-                  <TagItem key={tag} tag={tag} isTagSelected={isTagSelected} onTagSelected={() => handleTagClick(tag)} />
+                  <SidbarItem key={tag} icon={<Tag />} label={tag} isActive={isTagSelected} onActive={() => handleTagClick(tag)} />
                 )
               })}
             </div>
