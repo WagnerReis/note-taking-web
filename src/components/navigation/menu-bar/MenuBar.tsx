@@ -22,34 +22,34 @@ export function MenuBar() {
   const isMounted = useIsMounted();
 
   if (!isMounted) {
-    return null
+    return null;
   }
 
   const listItems: MenuBarItemProps[] = [
     {
       icon: <Home />,
       label: "Home",
-      redirect: "/"
+      redirect: "/",
     },
     {
       icon: <Search />,
       label: "Search",
-      redirect: "/"
+      redirect: "/",
     },
     {
       icon: <Archive />,
       label: "Archive",
-      redirect: "/"
+      redirect: "/",
     },
     {
       icon: <Tag />,
       label: "Tag",
-      redirect: "/"
+      redirect: "/",
     },
     {
       icon: <Setting />,
       label: "Setting",
-      redirect: "/settings"
+      redirect: "/settings",
     },
   ];
 

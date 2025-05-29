@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useFont } from "@/contexts/font-context";
-import { twMerge } from "tailwind-merge";
+import { twJoin } from "tailwind-merge";
 
 interface TypographyProps {
   children: ReactNode;
@@ -15,7 +15,7 @@ export function Typography({ children, className, preset }: TypographyProps) {
 
   return (
     <p
-      className={twMerge(
+      className={twJoin(
         `text-preset-${preset}`,
         `font-${fontFamily}`,
         className,

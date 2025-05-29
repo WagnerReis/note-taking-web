@@ -10,27 +10,38 @@ import { Tag } from "@/components/ui/icons/tag";
 import { SidebarItem } from "./SidebarItem";
 import Link from "next/link";
 
-const TAGS_MOCK = ["Cooking", "Dev", "Fitness", "Health", "Personal", "React", "Recipes", "Shopping", "Travel", "Typescript"];
+const TAGS_MOCK = [
+  "Cooking",
+  "Dev",
+  "Fitness",
+  "Health",
+  "Personal",
+  "React",
+  "Recipes",
+  "Shopping",
+  "Travel",
+  "Typescript",
+];
 
 const navItems = [
   {
     icon: <Home />,
-    label: "All Notes"
+    label: "All Notes",
   },
   {
     icon: <Archive />,
-    label: "Archived Notes"
-  }
-]
+    label: "Archived Notes",
+  },
+];
 
 export function Sidebar() {
-  const [selectedNav, setSelectedNav] = useState("All Notes")
-  const [selectedTag, setSelectedTag] = useState("")
+  const [selectedNav, setSelectedNav] = useState("All Notes");
+  const [selectedTag, setSelectedTag] = useState("");
   const { isDesktop } = useResponsive();
 
   const handleNavClick = useCallback((label: string) => {
-    setSelectedNav(label)
-  }, [])
+    setSelectedNav(label);
+  }, []);
 
   const handleTagClick = useCallback((tag: string) => {
     setSelectedTag(tag);
@@ -39,19 +50,23 @@ export function Sidebar() {
   return (
     <>
       {isDesktop && (
-        <aside className="min-h-screen w-[272px] border-r border-neutral-200 dark:border-neutral-800 px-200 transition ease-in-out duration-200">
+        <aside className="min-h-screen w-[272px] border-r border-neutral-200 px-200 transition duration-200 ease-in-out dark:border-neutral-800">
           <header className="mt-300">
             <Link
               href="/"
               className="cursor-custom border-none"
               onClick={() => {
-                setSelectedTag("")
-                setSelectedNav("All Notes")
+                setSelectedTag("");
+                setSelectedNav("All Notes");
               }}
             >
-              <Logo width={95} height={28} className="text-neutral-950 dark:text-white" />
+              <Logo
+                width={95}
+                height={28}
+                className="text-neutral-950 dark:text-white"
+              />
             </Link>
-            <nav className="flex flex-col mt-4">
+            <nav className="mt-4 flex flex-col">
               {navItems.map((item) => (
                 <SidebarItem
                   key={item.label}
@@ -65,14 +80,20 @@ export function Sidebar() {
           </header>
           <Divider className="my-2" />
           <div>
-            <Preset4 className="text-neutral-500 mb-">Tags</Preset4>
+            <Preset4 className="mb- text-neutral-500">Tags</Preset4>
 
             <div className="mt-2 flex flex-col">
-              {TAGS_MOCK.map(tag => {
-                const isTagSelected = selectedTag === tag
+              {TAGS_MOCK.map((tag) => {
+                const isTagSelected = selectedTag === tag;
                 return (
-                  <SidebarItem key={tag} icon={<Tag />} label={tag} isActive={isTagSelected} onActive={() => handleTagClick(tag)} />
-                )
+                  <SidebarItem
+                    key={tag}
+                    icon={<Tag />}
+                    label={tag}
+                    isActive={isTagSelected}
+                    onActive={() => handleTagClick(tag)}
+                  />
+                );
               })}
             </div>
           </div>

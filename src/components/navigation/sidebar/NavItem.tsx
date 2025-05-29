@@ -15,15 +15,16 @@ export function NavItem({ icon, label, isActive, onClick }: NavItemProps) {
       onClick={onClick}
       aria-current={isActive ? "page" : undefined}
       className={twMerge(
-        "flex w-full items-center gap-2 rounded-8 p-2 text-left transition-colors cursor-custom",
+        "rounded-8 cursor-custom flex w-full items-center gap-2 p-2 text-left transition-colors",
         "text-neutral-700 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800",
-        isActive && "bg-neutral-100 dark:bg-neutral-800 text-neutral-950 dark:text-white"
+        isActive &&
+          "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white",
       )}
     >
       {cloneElement(icon, {
         className: twMerge(
           icon.props.className,
-          isActive && "text-blue-500 dark:text-blue-500"
+          isActive && "text-blue-500 dark:text-blue-500",
         ),
       })}
       <span className="flex-1">{label}</span>
