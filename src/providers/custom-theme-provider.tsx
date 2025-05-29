@@ -13,8 +13,8 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
       attribute="class"
       defaultTheme="system"
       storageKey="@note-taking-theme"
-      themes={["dark", "light"]}
       enableSystem
+      disableTransitionOnChange
     >
       {children}
     </ThemeProvider>

@@ -1,35 +1,42 @@
 "use client";
 import { useCallback, useState } from "react"
-import { Sun } from "./ui/icons/sun";
-import { Type } from "./ui/icons/type";
-import { Padlock } from "./ui/icons/padlock";
-import { SidebarItem } from "./navigation/sidebar/SidebarItem";
-import { Divider } from "./ui/divider";
-import { Logout } from "./ui/icons/logout";
+import { Sun } from "../../../../components/ui/icons/sun";
+import { Type } from "../../../../components/ui/icons/type";
+import { Padlock } from "../../../../components/ui/icons/padlock";
+import { SidebarItem } from "../../../../components/navigation/sidebar/SidebarItem";
+import { Divider } from "../../../../components/ui/divider";
+import { Logout } from "../../../../components/ui/icons/logout";
 import { useResponsive } from "@/hooks/use-responsive";
 import { twMerge } from "tailwind-merge";
 
-export function SidebarSettings() {
-  const [selectedTab, setSelectedTab] = useState("Color Theme");
+interface SidebarSettingsProps {
+  selectedTab: string;
+  onSelectedTab: (value: string) => void;
+}
+
+export function SidebarSettings({ selectedTab, onSelectedTab }: SidebarSettingsProps) {
   const { isMobile, isTablet } = useResponsive()
 
   const sidebarItems = [
     {
       icon: <Sun />,
-      label: "Color Theme"
+      label: "Color Theme",
+      redirect: "/settings/change-theme"
     },
     {
       icon: <Type />,
-      label: "Font Theme"
+      label: "Font Theme",
+      redirect: "/"
     },
     {
       icon: <Padlock />,
-      label: "Change Password"
+      label: "Change Password",
+      redirect: "/"
     }
   ]
 
   const handleSelectItem = useCallback((label: string) => {
-    setSelectedTab(label)
+    onSelectedTab(label)
   }, [])
 
   return (
@@ -43,6 +50,7 @@ export function SidebarSettings() {
           icon={item.icon}
           label={item.label}
           isMobile={isMobile || isTablet}
+          redirectPath={item.redirect}
           isActive={selectedTab === item.label}
           onActive={() => handleSelectItem(item.label)}
         />
