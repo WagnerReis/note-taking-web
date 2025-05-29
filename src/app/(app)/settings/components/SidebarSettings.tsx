@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react"
+import { useCallback, useState } from "react";
 import { Sun } from "../../../../components/ui/icons/sun";
 import { Type } from "../../../../components/ui/icons/type";
 import { Padlock } from "../../../../components/ui/icons/padlock";
@@ -14,37 +14,44 @@ interface SidebarSettingsProps {
   onSelectedTab: (value: string) => void;
 }
 
-export function SidebarSettings({ selectedTab, onSelectedTab }: SidebarSettingsProps) {
-  const { isMobile, isTablet } = useResponsive()
+export function SidebarSettings({
+  selectedTab,
+  onSelectedTab,
+}: SidebarSettingsProps) {
+  const { isMobile, isTablet } = useResponsive();
 
   const sidebarItems = [
     {
       icon: <Sun />,
       label: "Color Theme",
-      redirect: "/settings/change-theme"
+      redirect: "/settings/change-theme",
     },
     {
       icon: <Type />,
       label: "Font Theme",
-      redirect: "/"
+      redirect: "/",
     },
     {
       icon: <Padlock />,
       label: "Change Password",
-      redirect: "/"
-    }
-  ]
+      redirect: "/",
+    },
+  ];
 
   const handleSelectItem = useCallback((label: string) => {
-    onSelectedTab(label)
-  }, [])
+    onSelectedTab(label);
+  }, []);
 
   return (
-    <main className={twMerge(
-      "h-full space-y-2 p-250 ",
-      isMobile || isTablet ? "w-full" : "w-[272px] border-r border-neutral-200 dark:border-neutral-800"
-    )}>
-      {sidebarItems.map(item =>
+    <main
+      className={twMerge(
+        "h-full space-y-2 p-250",
+        isMobile || isTablet
+          ? "w-full"
+          : "w-[272px] border-r border-neutral-200 dark:border-neutral-800",
+      )}
+    >
+      {sidebarItems.map((item) => (
         <SidebarItem
           key={item.label}
           icon={item.icon}
@@ -54,7 +61,7 @@ export function SidebarSettings({ selectedTab, onSelectedTab }: SidebarSettingsP
           isActive={selectedTab === item.label}
           onActive={() => handleSelectItem(item.label)}
         />
-      )}
+      ))}
 
       <Divider className="my-2" />
 
@@ -66,8 +73,5 @@ export function SidebarSettings({ selectedTab, onSelectedTab }: SidebarSettingsP
         onActive={() => handleSelectItem("Logout")}
       />
     </main>
-  )
+  );
 }
-
-
-

@@ -15,7 +15,10 @@ export function PageHeaderDesktop() {
           leftIcon={<Search className="cursor-custom" />}
           placeholder="Search by title, content, or tags…"
         />
-        <Link href="/settings" className="flex h-10 w-10 items-center justify-center">
+        <Link
+          href="/settings"
+          className="flex h-10 w-10 items-center justify-center"
+        >
           <Setting className="cursor-custom hover:opacity-[0.7]" />
         </Link>
       </div>
