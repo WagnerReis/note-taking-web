@@ -28,8 +28,8 @@ export default function RootLayout({
             <main className="flex h-screen">{children}</main>
             <MenuBar />
             {/* Just to test */}
+            <ThemeToggle />
           </FontProvider>
-          <ThemeToggle />
         </CustomThemeProvider>
       </body>
     </html>
