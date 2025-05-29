@@ -6,8 +6,8 @@ import { Archive } from "../../ui/icons/archive";
 import { Divider } from "../../ui/divider";
 import { useCallback, useState } from "react";
 import { Preset4 } from "../../Typography";
-import { TagItem } from "./TagItem";
-import { NavItem } from "./NavItem";
+import { Tag } from "@/components/ui/icons/tag";
+import { SidebarItem } from "./SidebarItem";
 import Link from "next/link";
 
 const TAGS_MOCK = ["Cooking", "Dev", "Fitness", "Health", "Personal", "React", "Recipes", "Shopping", "Travel", "Typescript"];
@@ -41,17 +41,24 @@ export function Sidebar() {
       {isDesktop && (
         <aside className="min-h-screen w-[272px] border-r border-neutral-200 dark:border-neutral-800 px-200 transition ease-in-out duration-200">
           <header className="mt-300">
-            <Link href="/" className="cursor-custom">
+            <Link
+              href="/"
+              className="cursor-custom border-none"
+              onClick={() => {
+                setSelectedTag("")
+                setSelectedNav("All Notes")
+              }}
+            >
               <Logo width={95} height={28} className="text-neutral-950 dark:text-white" />
             </Link>
             <nav className="flex flex-col mt-4">
               {navItems.map((item) => (
-                <NavItem
+                <SidebarItem
                   key={item.label}
                   icon={item.icon}
                   label={item.label}
                   isActive={item.label === selectedNav}
-                  onClick={() => handleNavClick(item.label)}
+                  onActive={() => handleNavClick(item.label)}
                 />
               ))}
             </nav>
@@ -64,7 +71,7 @@ export function Sidebar() {
               {TAGS_MOCK.map(tag => {
                 const isTagSelected = selectedTag === tag
                 return (
-                  <TagItem key={tag} tag={tag} isTagSelected={isTagSelected} onTagSelected={() => handleTagClick(tag)} />
+                  <SidebarItem key={tag} icon={<Tag />} label={tag} isActive={isTagSelected} onActive={() => handleTagClick(tag)} />
                 )
               })}
             </div>

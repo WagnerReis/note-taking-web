@@ -1,4 +1,5 @@
 import { Preset6 } from "@/components/Typography";
+import Link from "next/link";
 import { cloneElement, MouseEventHandler, ReactElement } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -9,6 +10,7 @@ interface MenuItemProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
   showLabel: boolean;
   isTablet: boolean;
+  redirectPath: string;
 }
 
 export function MenuItem({
@@ -18,9 +20,11 @@ export function MenuItem({
   onClick,
   showLabel,
   isTablet,
+  redirectPath,
 }: MenuItemProps) {
   return (
-    <li
+    <Link
+      href={redirectPath}
       className={twMerge(
         "flex h-[50px] flex-grow flex-col items-center justify-center",
         isTablet
@@ -52,6 +56,6 @@ export function MenuItem({
           </Preset6>
         )}
       </button>
-    </li>
+    </Link>
   );
 }
