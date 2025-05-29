@@ -29,7 +29,7 @@ export function SidebarSettings({
     {
       icon: <Type />,
       label: "Font Theme",
-      redirect: "/",
+      redirect: "/settings/change-font",
     },
     {
       icon: <Padlock />,
