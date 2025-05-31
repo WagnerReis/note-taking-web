@@ -4,8 +4,9 @@ import { twJoin, twMerge } from "tailwind-merge";
 import { Hide } from "./icons/hide";
 import { Show } from "./icons/show";
 import { InfoCircle } from "./icons/info-circle";
-import { Preset6 } from "../Typography";
+import { Preset4, Preset6 } from "../Typography";
 import Link from "next/link";
+import { useFont } from "@/contexts/font-context";
 
 type InputVariant = "default" | "error" | "focused" | "disabled";
 
@@ -69,6 +70,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [isFocused, setIsFocused] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const { fontFamily } = useFont();
 
     const inputType =
       showPasswordToggle && type === "password"
@@ -174,14 +176,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className="relative flex w-full flex-col gap-1.5">
           {label && (
             <div className="flex items-end">
-              <label
+              <Preset4
                 className={twMerge(
-                  "text-preset-4 text-neutral-950 dark:text-white",
+                  "text-neutral-950 dark:text-white",
                   labelClassName,
                 )}
               >
                 {label}
-              </label>
+              </Preset4>
 
               {isLogin && (
                 <Link
@@ -208,6 +210,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               leftIcon && "pr-200 pl-[46px]",
               rightIcon && "pr-[44px] pl-200",
               twJoin(getInputStyles()),
+              `font-${fontFamily} text-font-${fontFamily}`,
               inputClassName,
             )}
           />

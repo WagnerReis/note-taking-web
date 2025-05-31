@@ -50,7 +50,7 @@ export function AuthFormContainer({
           )}
           type="button"
           onClick={() =>
-            (window.location.href = "http://localhost:3000/api/auth/google")
+            (window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`)
           }
         >
           <GoogleLogo size={20} weight="bold" />

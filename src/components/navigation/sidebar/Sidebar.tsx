@@ -72,6 +72,7 @@ export function Sidebar() {
                   key={item.label}
                   icon={item.icon}
                   label={item.label}
+                  isMobile={false}
                   isActive={item.label === selectedNav}
                   onActive={() => handleNavClick(item.label)}
                 />
@@ -90,6 +91,7 @@ export function Sidebar() {
                     key={tag}
                     icon={<Tag />}
                     label={tag}
+                    isMobile={false}
                     isActive={isTagSelected}
                     onActive={() => handleTagClick(tag)}
                   />

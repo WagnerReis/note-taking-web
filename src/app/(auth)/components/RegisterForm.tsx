@@ -2,6 +2,7 @@
 import { Preset5 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { fetchWithAuth } from "@/lib/fetchWithAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -36,7 +37,7 @@ export function RegisterForm() {
   const passwordError = errors.password?.message;
 
   async function onSubmit(data: RegisterFormDataType) {
-    const response = await fetch(
+    const response = await fetchWithAuth<{ status: number }>(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/users`,
       {
         method: "POST",
@@ -50,7 +51,7 @@ export function RegisterForm() {
 
     if (response.status === 200) {
       reset();
-      router.push("/");
+      return router.push("/");
     }
 
     const errorMessage =
