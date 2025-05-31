@@ -37,7 +37,7 @@ export function RegisterForm() {
   const passwordError = errors.password?.message;
 
   async function onSubmit(data: RegisterFormDataType) {
-    const response = await fetchWithAuth<{status: number}>(
+    const response = await fetchWithAuth<{ status: number }>(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/users`,
       {
         method: "POST",

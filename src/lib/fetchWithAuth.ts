@@ -1,4 +1,4 @@
-type FetchMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+type FetchMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 interface FetchWithAuthOptions extends RequestInit {
   method?: FetchMethod;
@@ -15,11 +15,11 @@ interface ApiError {
 export async function fetchWithAuth<T = any>(
   url: string,
   options: FetchWithAuthOptions = {},
-): Promise<T>{
+): Promise<T> {
   const {
     timeout = 10000,
     parseJson = true,
-    method = 'GET',
+    method = "GET",
     headers,
     ...rest
   } = options;
@@ -31,30 +31,33 @@ export async function fetchWithAuth<T = any>(
     return await fetch(url, {
       method,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...headers,
       },
-      credentials: 'include', 
+      credentials: "include",
       signal: controller.signal,
       ...rest,
     });
   };
 
   let res = await doFetch();
-  
+
   clearTimeout(id);
 
   if (res.status === 401) {
-    const refresh = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`, {
-      method: 'POST',
-      credentials: 'include',
-    });
-    console.log("🚀 ~ refresh:", refresh)
+    const refresh = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`,
+      {
+        method: "POST",
+        credentials: "include",
+      },
+    );
+    console.log("🚀 ~ refresh:", refresh);
 
     if (!refresh.ok) {
       throw <ApiError>{
         status: 401,
-        message: 'Session expired. Please log in again.',
+        message: "Session expired. Please log in again.",
       };
     }
 
@@ -62,7 +65,7 @@ export async function fetchWithAuth<T = any>(
   }
 
   if (!res.ok) {
-    let errorMessage = 'Request error';
+    let errorMessage = "Request error";
     let details = null;
 
     try {

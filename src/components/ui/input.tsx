@@ -211,7 +211,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               rightIcon && "pr-[44px] pl-200",
               twJoin(getInputStyles()),
               `font-${fontFamily} text-font-${fontFamily}`,
-              inputClassName
+              inputClassName,
             )}
           />
 

@@ -47,7 +47,7 @@ export function PreferenceSelector<T extends string>({
     <div
       className={twMerge(
         "mt-6 px-4 md:px-8 lg:mt-8",
-        isDesktop ? "w-[538px]" : "w-full"
+        isDesktop ? "w-[538px]" : "w-full",
       )}
     >
       {!isDesktop && (
@@ -78,20 +78,20 @@ export function PreferenceSelector<T extends string>({
               onClick={() => setCurrent(option.value)}
               className={twMerge(
                 "rounded-12 cursor-custom flex items-center border border-neutral-200 p-4 dark:border-neutral-800",
-                isSelected && "bg-neutral-100 dark:bg-neutral-800"
+                isSelected && "bg-neutral-100 dark:bg-neutral-800",
               )}
             >
               <div
                 className={twMerge(
                   "rounded-12 flex h-10 w-10 items-center justify-center",
                   "border border-neutral-200 dark:border-neutral-800",
-                  isSelected && "bg-white dark:bg-neutral-950"
+                  isSelected && "bg-white dark:bg-neutral-950",
                 )}
               >
                 {cloneElement(option.icon, {
                   className: twMerge(
                     option.icon.props.className,
-                    "text-neutral-950 dark:text-white"
+                    "text-neutral-950 dark:text-white",
                   ),
                 })}
               </div>
@@ -106,7 +106,7 @@ export function PreferenceSelector<T extends string>({
               <div
                 className={twMerge(
                   "ml-auto h-4 w-4 rounded-full border-2 border-neutral-600",
-                  isSelected && "border-4 border-blue-500"
+                  isSelected && "border-4 border-blue-500",
                 )}
               />
             </div>
