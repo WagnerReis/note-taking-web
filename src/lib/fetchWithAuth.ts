@@ -28,7 +28,7 @@ export async function fetchWithAuth<T = any>(
   const id = setTimeout(() => controller.abort(), timeout);
 
   const doFetch = async (): Promise<Response> => {
-    return await fetch(url, {
+    return await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`, {
       method,
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,6 @@ export async function fetchWithAuth<T = any>(
         credentials: "include",
       },
     );
-    console.log("🚀 ~ refresh:", refresh);
 
     if (!refresh.ok) {
       throw <ApiError>{
@@ -83,5 +82,10 @@ export async function fetchWithAuth<T = any>(
 
   if (!parseJson) return res as any;
 
-  return { status: 200 } as T;
+  const contentType = res.headers.get("content-type");
+  const isJson = contentType?.includes("application/json");
+
+  const data = isJson ? await res.json() : null;
+
+  return { status: res.status, data } as T;
 }

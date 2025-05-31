@@ -31,6 +31,7 @@ export function SidebarItem({
 
   const baseClass =
     "w-full px-150 py-[10px] flex items-center gap-2 rounded-8 cursor-custom text-neutral-700 dark:text-neutral-200";
+    
   const activeClass =
     isActive && !isMobile ? "bg-neutral-100 dark:bg-neutral-800" : "";
 

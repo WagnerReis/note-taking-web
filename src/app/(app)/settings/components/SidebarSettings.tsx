@@ -8,6 +8,8 @@ import { Divider } from "../../../../components/ui/divider";
 import { Logout } from "../../../../components/ui/icons/logout";
 import { useResponsive } from "@/hooks/use-responsive";
 import { twMerge } from "tailwind-merge";
+import { fetchWithAuth } from "@/lib/fetchWithAuth";
+import { useRouter } from "next/navigation";
 
 interface SidebarSettingsProps {
   selectedTab: string;
@@ -19,6 +21,7 @@ export function SidebarSettings({
   onSelectedTab,
 }: SidebarSettingsProps) {
   const { isMobile, isTablet } = useResponsive();
+  const router = useRouter();
 
   const sidebarItems = [
     {
@@ -41,6 +44,14 @@ export function SidebarSettings({
   const handleSelectItem = useCallback((label: string) => {
     onSelectedTab(label);
   }, []);
+
+  async function handleLogout() {
+    await fetchWithAuth("/auth/logout", {
+      method: "POST",
+    })
+    
+    router.push("/login");
+  }
 
   return (
     <main
@@ -65,13 +76,23 @@ export function SidebarSettings({
 
       <Divider className="my-2" />
 
-      <SidebarItem
+      {/* <SidebarItem
         icon={<Logout />}
         label="Logout"
         isMobile={isMobile || isTablet}
         isActive={selectedTab === "Logout"}
         onActive={() => handleSelectItem("Logout")}
-      />
+      /> */}
+
+      <button className="w-full" onClick={handleLogout}>
+        <div className={twMerge(
+          "px-150 py-[10px] flex items-center gap-2 rounded-8 cursor-custom text-neutral-700 dark:text-neutral-200",
+          "hover:text-neutral-950 hover:dark:text-white"
+        )}>
+          <Logout />
+          <p className="text-sm">Logout</p>
+        </div>
+      </button>
     </main>
   );
 }

@@ -38,7 +38,7 @@ export function LoginForm({ apiPath, buttonLabel }: LoginFormProps) {
 
   async function onSubmit(data: LoginFormDataType) {
     const response = await fetchWithAuth<{ status: number }>(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiPath}`,
+      `${apiPath}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

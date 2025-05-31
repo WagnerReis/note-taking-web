@@ -38,7 +38,7 @@ export function RegisterForm() {
 
   async function onSubmit(data: RegisterFormDataType) {
     const response = await fetchWithAuth<{ status: number }>(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users`,
+      '/users',
       {
         method: "POST",
         headers: {
