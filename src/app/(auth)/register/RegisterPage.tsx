@@ -21,7 +21,7 @@ export default function RegisterPage() {
         </Preset5>
       }
     >
-      <LoginForm />
+      <LoginForm apiPath="/users" buttonLabel="SignUp" />
     </AuthFormContainer>
   );
 }

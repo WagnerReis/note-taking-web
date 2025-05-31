@@ -21,7 +21,7 @@ export default function LoginPage() {
         </Preset5>
       }
     >
-      <LoginForm />
+      <LoginForm  apiPath="/auth/login" buttonLabel="Login"/>
     </AuthFormContainer>
   );
 }

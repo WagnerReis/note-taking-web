@@ -2,6 +2,7 @@
 import { Preset5 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { fetchWithAuth } from "@/lib/fetchWithAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -15,7 +16,12 @@ const loginFormSchema = z.object({
 
 type LoginFormDataType = z.infer<typeof loginFormSchema>;
 
-export function LoginForm() {
+interface LoginFormProps {
+  apiPath: string;
+  buttonLabel: string;
+}
+
+export function LoginForm({ apiPath, buttonLabel }: LoginFormProps) {
   const router = useRouter();
   const [credentialsError, setCredentialsError] = useState("");
   const {
@@ -31,8 +37,8 @@ export function LoginForm() {
   const passwordError = errors.password?.message;
 
   async function onSubmit(data: LoginFormDataType) {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
+    const response = await fetchWithAuth<{status: number}>(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiPath}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -73,7 +79,7 @@ export function LoginForm() {
           {credentialsError}
         </Preset5>
       )}
-      <Button intent="primary" text="Login" type="submit" />
+      <Button intent="primary" text={buttonLabel} type="submit" />
     </form>
   );
 }
