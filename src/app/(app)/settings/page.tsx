@@ -4,15 +4,18 @@ import { useState } from "react";
 import { ChangeTheme } from "./components/ChangeTheme";
 import { ChangeFont } from "./components/ChangeFont";
 import { useResponsive } from "@/hooks/use-responsive";
+import { ChangePassword } from "./components/ChangePassword";
 
 enum Tabs {
   ColorTheme = "Color Theme",
   FontTheme = "Font Theme",
+  ChangePassword = "Change Password"
 }
 
 const TAB_COMPONENTS = {
   [Tabs.ColorTheme]: <ChangeTheme />,
   [Tabs.FontTheme]: <ChangeFont />,
+  [Tabs.ChangePassword]: <ChangePassword />,
 };
 
 export default function SettingsPage() {

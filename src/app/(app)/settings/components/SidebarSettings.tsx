@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { Sun } from "../../../../components/ui/icons/sun";
 import { Type } from "../../../../components/ui/icons/type";
 import { Padlock } from "../../../../components/ui/icons/padlock";
@@ -8,7 +8,6 @@ import { Divider } from "../../../../components/ui/divider";
 import { Logout } from "../../../../components/ui/icons/logout";
 import { useResponsive } from "@/hooks/use-responsive";
 import { twMerge } from "tailwind-merge";
-import { fetchWithAuth } from "@/lib/fetchWithAuth";
 import { useRouter } from "next/navigation";
 
 interface SidebarSettingsProps {
@@ -37,7 +36,7 @@ export function SidebarSettings({
     {
       icon: <Padlock />,
       label: "Change Password",
-      redirect: "/",
+      redirect: "/settings/change-password",
     },
   ];
 
@@ -46,10 +45,12 @@ export function SidebarSettings({
   }, []);
 
   async function handleLogout() {
-    await fetchWithAuth("/auth/logout", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
       method: "POST",
     })
-    
+
+    console.log("aaaaaaaaaa", response)
+
     router.push("/login");
   }
 
@@ -75,14 +76,6 @@ export function SidebarSettings({
       ))}
 
       <Divider className="my-2" />
-
-      {/* <SidebarItem
-        icon={<Logout />}
-        label="Logout"
-        isMobile={isMobile || isTablet}
-        isActive={selectedTab === "Logout"}
-        onActive={() => handleSelectItem("Logout")}
-      /> */}
 
       <button className="w-full" onClick={handleLogout}>
         <div className={twMerge(

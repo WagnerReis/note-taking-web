@@ -2,7 +2,6 @@
 import { Preset5 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { fetchWithAuth } from "@/lib/fetchWithAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -37,8 +36,8 @@ export function LoginForm({ apiPath, buttonLabel }: LoginFormProps) {
   const passwordError = errors.password?.message;
 
   async function onSubmit(data: LoginFormDataType) {
-    const response = await fetchWithAuth<{ status: number }>(
-      `${apiPath}`,
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiPath}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
