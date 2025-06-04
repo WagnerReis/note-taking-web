@@ -1,7 +1,7 @@
 "use client";
 
 import { AuthProvider } from "@/components/auth-provider";
-import { SidebarAllNotes } from "@/components/SidebarAllNotes";
+import { SidebarAllNotes } from "@/app/(app)/components/SidebarAllNotes";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
