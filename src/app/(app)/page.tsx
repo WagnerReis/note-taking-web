@@ -3,7 +3,6 @@
 import { AuthProvider } from "@/components/auth-provider";
 import { SidebarAllNotes } from "@/components/SidebarAllNotes";
 import { useAuth } from "@/hooks/use-auth";
-import { useResponsive } from "@/hooks/use-responsive";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -21,12 +20,9 @@ export default function HomePage() {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  const { isDesktop } = useResponsive();
   return (
-    <>
-      <AuthProvider>
-        <main className="h-screen">{isDesktop && <SidebarAllNotes />}</main>;
-      </AuthProvider>
-    </>
+    <AuthProvider>
+      <SidebarAllNotes />
+    </AuthProvider>
   );
 }
