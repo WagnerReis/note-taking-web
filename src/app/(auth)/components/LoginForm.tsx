@@ -2,6 +2,7 @@
 import { Preset5 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useApi } from "@/hooks/use-api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -22,6 +23,7 @@ interface LoginFormProps {
 
 export function LoginForm({ apiPath, buttonLabel }: LoginFormProps) {
   const router = useRouter();
+  const { post } = useApi();
   const [credentialsError, setCredentialsError] = useState("");
   const {
     register,
@@ -36,15 +38,7 @@ export function LoginForm({ apiPath, buttonLabel }: LoginFormProps) {
   const passwordError = errors.password?.message;
 
   async function onSubmit(data: LoginFormDataType) {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiPath}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-        credentials: "include",
-      },
-    );
+    const response = await post<{ status: number }>(`${apiPath}`, data);
 
     if (response.status === 200) {
       reset();

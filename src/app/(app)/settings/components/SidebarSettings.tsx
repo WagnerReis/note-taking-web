@@ -9,6 +9,7 @@ import { Logout } from "../../../../components/ui/icons/logout";
 import { useResponsive } from "@/hooks/use-responsive";
 import { twMerge } from "tailwind-merge";
 import { useRouter } from "next/navigation";
+import { useApi } from "@/hooks/use-api";
 
 interface SidebarSettingsProps {
   selectedTab: string;
@@ -20,6 +21,7 @@ export function SidebarSettings({
   onSelectedTab,
 }: SidebarSettingsProps) {
   const { isMobile, isTablet } = useResponsive();
+  const { logout } = useApi();
   const router = useRouter();
 
   const sidebarItems = [
@@ -45,11 +47,7 @@ export function SidebarSettings({
   }, []);
 
   async function handleLogout() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
-      method: "POST",
-    })
-
-    console.log("aaaaaaaaaa", response)
+    await logout();
 
     router.push("/login");
   }
@@ -78,10 +76,12 @@ export function SidebarSettings({
       <Divider className="my-2" />
 
       <button className="w-full" onClick={handleLogout}>
-        <div className={twMerge(
-          "px-150 py-[10px] flex items-center gap-2 rounded-8 cursor-custom text-neutral-700 dark:text-neutral-200",
-          "hover:text-neutral-950 hover:dark:text-white"
-        )}>
+        <div
+          className={twMerge(
+            "rounded-8 cursor-custom flex items-center gap-2 px-150 py-[10px] text-neutral-700 dark:text-neutral-200",
+            "hover:text-neutral-950 hover:dark:text-white",
+          )}
+        >
           <Logout />
           <p className="text-sm">Logout</p>
         </div>

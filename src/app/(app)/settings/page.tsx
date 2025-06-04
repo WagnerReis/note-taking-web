@@ -9,7 +9,7 @@ import { ChangePassword } from "./components/ChangePassword";
 enum Tabs {
   ColorTheme = "Color Theme",
   FontTheme = "Font Theme",
-  ChangePassword = "Change Password"
+  ChangePassword = "Change Password",
 }
 
 const TAB_COMPONENTS = {
