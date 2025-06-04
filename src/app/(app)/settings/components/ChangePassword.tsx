@@ -3,24 +3,26 @@ import { Preset1, Preset4 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft2 } from "@/components/ui/icons/arrow-left2";
 import { Input } from "@/components/ui/input";
-import { useResponsive } from "@/hooks/use-responsive"
+import { useResponsive } from "@/hooks/use-responsive";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useApi } from "@/hooks/use-api";
 
 const changePasswordFormSchema = z.object({
   oldPassword: z.string().min(8, "At least 8 characters"),
   newPassword: z.string().min(8, "At least 8 characters"),
   confirmPassword: z.string().min(8, "At least 8 characters"),
-})
+});
 
 type ChangePasswordForm = z.infer<typeof changePasswordFormSchema>;
 
 export function ChangePassword() {
   const { isDesktop } = useResponsive();
   const router = useRouter();
+  const { post } = useApi();
 
   const {
     register,
@@ -34,7 +36,7 @@ export function ChangePassword() {
       oldPassword: "",
       newPassword: "",
       confirmPassword: "",
-    }
+    },
   });
 
   const oldPasswordError = errors.oldPassword?.message;
@@ -51,12 +53,9 @@ export function ChangePassword() {
     }
 
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/change-password`, {
-        method: "POST",
-        body: JSON.stringify({
-          oldPassword: data.oldPassword,
-          newPassword: data.newPassword
-        }),
+      await post("/users/change-password", {
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword,
       });
 
       reset();
@@ -66,10 +65,12 @@ export function ChangePassword() {
   }
 
   return (
-    <div className={twMerge(
-      "mt-6 px-4 md:px-8 lg:mt-8",
-      isDesktop ? "w-[538px]" : "w-full",
-    )}>
+    <div
+      className={twMerge(
+        "mt-6 px-4 md:px-8 lg:mt-8",
+        isDesktop ? "w-[538px]" : "w-full",
+      )}
+    >
       {!isDesktop && (
         <button
           className="flex items-center gap-2"
@@ -113,11 +114,10 @@ export function ChangePassword() {
           {...register("confirmPassword")}
         />
 
-        <div className="w-[132px] ml-auto mt-6">
+        <div className="mt-6 ml-auto w-[132px]">
           <Button intent="primary" text="Save Changes" type="submit" />
         </div>
-
       </form>
     </div>
-  )
+  );
 }

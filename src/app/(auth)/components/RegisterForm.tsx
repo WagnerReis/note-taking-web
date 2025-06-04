@@ -2,6 +2,7 @@
 import { Preset5 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useApi } from "@/hooks/use-api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -17,6 +18,7 @@ type RegisterFormDataType = z.infer<typeof registerFormSchema>;
 
 export function RegisterForm() {
   const router = useRouter();
+  const { post } = useApi();
   const [credentialsError, setCredentialsError] = useState("");
 
   const {
@@ -36,17 +38,7 @@ export function RegisterForm() {
   const passwordError = errors.password?.message;
 
   async function onSubmit(data: RegisterFormDataType) {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        credentials: "include",
-      },
-    );
+    const response = await post<{ status: number }>(`/users`, data);
 
     if (response.status === 200) {
       reset();
