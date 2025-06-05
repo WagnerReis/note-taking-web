@@ -1,6 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 import { Preset3 } from "../Typography";
+import { ReactNode } from "react";
 
 const buttonStyles = cva("rounded-8  w-full h-11 cursor-custom", {
   variants: {
@@ -18,7 +19,7 @@ const buttonStyles = cva("rounded-8  w-full h-11 cursor-custom", {
         "focus:ring-neutral-300",
         "dark:focus:ring-neutral-500",
       ],
-      secondary: ["bg-neutral-100"],
+      secondary: ["border border-neutral-300 dark:border-neutral-600 flex items-center pl-4 gap-2"],
     },
     defaultVariants: {
       intent: "primary",
@@ -28,16 +29,18 @@ const buttonStyles = cva("rounded-8  w-full h-11 cursor-custom", {
 
 interface ButtonProps extends VariantProps<typeof buttonStyles> {
   text: string;
+  icon?: ReactNode;
   type?: "button" | "submit";
 }
 
-export function Button({ intent, text, type, ...props }: ButtonProps) {
+export function Button({ intent, text, icon, type, ...props }: ButtonProps) {
   return (
     <button
       type={type || "button"}
       className={twMerge(buttonStyles({ intent }))}
       {...props}
     >
+      {intent === "secondary" && icon}
       <Preset3>{text}</Preset3>
     </button>
   );
