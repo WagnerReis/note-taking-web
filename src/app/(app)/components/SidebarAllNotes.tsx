@@ -44,6 +44,8 @@ export function SidebarAllNotes() {
   const [selectedNoteId, setSelectedNoteId] = useState<string>("")
   const isMounted = useIsMounted();
 
+  const isSmallScreen = isMobile || isTablet;
+
   if (!isMounted) {
     return null;
   }
@@ -55,9 +57,9 @@ export function SidebarAllNotes() {
   return (
     <div
       className={twMerge(
-        "h-full p-200 lg:border-r lg:border-neutral-200 lg:p-250 dark:border-neutral-800",
+        "h-[calc(100vh-5.0625rem)] p-200 lg:border-r lg:border-neutral-200 lg:p-250 dark:border-neutral-800",
         isDesktop && "w-[272px]",
-        (isMobile || isTablet) && "w-full",
+        isSmallScreen && "w-full",
       )}
     >
       {isDesktop && (
@@ -66,7 +68,7 @@ export function SidebarAllNotes() {
         </header>
       )}
 
-      {(isMobile || isTablet) && <Preset1>All Notes</Preset1>}
+      {isSmallScreen && <Preset1>All Notes</Preset1>}
 
       {!notes.length && (
         <div className="rounded-8 mt-4 border border-neutral-200 bg-neutral-100 p-2 dark:border-neutral-700 dark:bg-neutral-800">
@@ -78,10 +80,10 @@ export function SidebarAllNotes() {
       )}
 
       <div className="mt-4 cursor-custom">
-        {notes.map((note) => {
-          const isLast = notes.indexOf(note) === notes.length - 1;
+        {notes.map((note, index) => {
+          const isLast = index === notes.length - 1;
           const isSelected = selectedNoteId === note.id && isDesktop;
-          const isNextSelected = notes[notes.indexOf(note) + 1]?.id === selectedNoteId && isDesktop;
+          const isNextSelected = notes[index + 1]?.id === selectedNoteId && isDesktop;
 
           return (
             <div key={note.id}>
