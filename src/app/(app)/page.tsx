@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Archive } from "@/components/ui/icons/archive";
 import { Delete } from "@/components/ui/icons/delete";
 import { SidebarRight } from "./components/SidebarRight";
+import { NoteContent } from "./components/NoteContent";
 
 export default function HomePage() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -32,7 +33,7 @@ export default function HomePage() {
         <SidebarAllNotes />
         {isDesktop && (
           <>
-            <div>Content</div>
+            <NoteContent />
             <SidebarRight />
           </>
         )}
