@@ -1,13 +1,13 @@
 "use client";
-import { AuthProvider } from "@/components/auth-provider";
 import { SidebarAllNotes } from "@/app/(app)/components/SidebarAllNotes";
+import { AuthProvider } from "@/components/auth-provider";
 import { useAuth } from "@/hooks/use-auth";
+import { useResponsive } from "@/hooks/use-responsive";
+import { useNotesStore } from "@/store/notes/useNotesStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useResponsive } from "@/hooks/use-responsive";
-import { SidebarRight } from "./components/SidebarRight";
 import { NoteContent } from "./components/NoteContent";
-import { useNotesStore } from "@/store/notes/useNotesStore";
+import { SidebarRight } from "./components/SidebarRight";
 
 export default function HomePage() {
   const { isAuthenticated, isLoading } = useAuth();

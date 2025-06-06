@@ -38,7 +38,7 @@ export const useNotesStore = create<NotesState>((set) => ({
     set({ loading: true, error: null });
     try {
       const response = await apiClient.get("/notes");
-      console.log("🚀 ~ fetchNotes: ~ response:", response);
+
       if (!response.ok) {
         throw new Error("Error on fetch notes");
       }
@@ -55,9 +55,31 @@ export const useNotesStore = create<NotesState>((set) => ({
   setSelectedNote: (note: Note | null) =>
     set((state) => ({ ...state, selectedNote: note })),
 
-  addNote: async () => {},
-  updateNote: async () => {},
-  removeNote: async () => {},
+  removeNote: async (noteId: string) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await apiClient.delete(`/notes/${noteId}`);
+
+      if (!response.ok) {
+        throw new Error("Error on delete note");
+      }
+
+      set((state) => ({
+        notes: state.notes.filter((note) => note.id !== noteId),
+        selectedNote:
+          state.selectedNote?.id === noteId ? null : state.selectedNote,
+        loading: false,
+      }));
+    } catch (error) {
+      set({
+        error: error instanceof Error ? error.message : "unknown error",
+        loading: false,
+      });
+    }
+  },
+
+  addNote: async (note: Omit<Note, "id" | "createdAt" | "updatedAt">) => {},
+  updateNote: async (id: string, note: Partial<Note>) => {},
   archiveNote: async () => {},
   unarchiveNote: async () => {},
   searchNotes: async () => {},
