@@ -1,19 +1,29 @@
+"use client";
 import { Preset1, Preset5 } from "@/components/Typography";
+import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
-import { Tag } from "@/components/ui/icons/tag";
 import { CircleClock } from "@/components/ui/icons/circle-clock";
-import { formatDate } from "@/utils/formatDate";
+import { Tag } from "@/components/ui/icons/tag";
+import { useResponsive } from "@/hooks/use-responsive";
 import { useNotesStore } from "@/store/notes/useNotesStore";
+import { formatDate } from "@/utils/formatDate";
+import { twMerge } from "tailwind-merge";
 
 export function NoteContent() {
-  const { selectedNote: note } = useNotesStore();
+  const { selectedNote: note, setSelectedNote } = useNotesStore();
+  const { isDesktop } = useResponsive();
 
   if (!note) {
     return null;
   }
 
   return (
-    <div className="h-full w-full space-y-3 overflow-hidden p-4">
+    <div
+      className={twMerge(
+        "flex h-full w-full flex-col space-y-3",
+        isDesktop ? "p-6" : "p-4",
+      )}
+    >
       <Preset1>{note.title}</Preset1>
 
       <div>
@@ -43,8 +53,23 @@ export function NoteContent() {
         name="content"
         id="content"
         defaultValue={note.content}
-        className="h-full w-full resize-none bg-transparent outline-none"
+        className="w-full flex-1 resize-none bg-transparent outline-none"
       />
+
+      {isDesktop && (
+        <div className="mt-4 flex flex-col gap-4">
+          <Divider />
+          <div className="w flex gap-4">
+            <Button intent="primary" text="Save note" className="w-[99px]" />
+            <Button
+              intent="tertiary"
+              text="Cancel"
+              className="w-[78px]"
+              onClick={() => setSelectedNote(null)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

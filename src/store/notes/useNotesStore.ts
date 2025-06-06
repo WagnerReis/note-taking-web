@@ -59,15 +59,16 @@ export const useNotesStore = create<NotesState>((set) => ({
     set({ loading: true, error: null });
     try {
       const response = await apiClient.delete(`/notes/${noteId}`);
-      
+
       if (!response.ok) {
         throw new Error("Error on delete note");
       }
 
       set((state) => ({
-        notes: state.notes.filter(note => note.id !== noteId),
-        selectedNote: state.selectedNote?.id === noteId ? null : state.selectedNote,
-        loading: false
+        notes: state.notes.filter((note) => note.id !== noteId),
+        selectedNote:
+          state.selectedNote?.id === noteId ? null : state.selectedNote,
+        loading: false,
       }));
     } catch (error) {
       set({

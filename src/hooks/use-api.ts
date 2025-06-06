@@ -1,7 +1,7 @@
 "use client";
-import { useCallback, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api-client";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect } from "react";
 
 export function useApi() {
   const router = useRouter();
@@ -22,7 +22,6 @@ export function useApi() {
     async <T>(requestFn: () => Promise<Response>): Promise<T> => {
       try {
         const response = await requestFn();
-        console.log("aaaaaaaaa", response);
 
         const authRoutes = ["/login", "/register"];
 
