@@ -1,7 +1,7 @@
 import { Preset5 } from "@/components/Typography";
 
 interface TagProps {
-  tag: string
+  tag: string;
 }
 
 export function Tag({ tag }: TagProps) {
@@ -12,5 +12,5 @@ export function Tag({ tag }: TagProps) {
     >
       {tag}
     </Preset5>
-  )
+  );
 }
