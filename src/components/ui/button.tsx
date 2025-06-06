@@ -1,7 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
+import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { Preset3 } from "../Typography";
-import { ReactNode } from "react";
 
 const buttonStyles = cva("rounded-8  w-full h-11 cursor-custom", {
   variants: {
@@ -33,13 +33,15 @@ interface ButtonProps extends VariantProps<typeof buttonStyles> {
   text: string;
   icon?: ReactNode;
   type?: "button" | "submit";
+  onClick?: () => void;
 }
 
-export function Button({ intent, text, icon, type, ...props }: ButtonProps) {
+export function Button({ intent, text, icon, type, onClick, ...props }: ButtonProps) {
   return (
     <button
       type={type || "button"}
       className={twMerge(buttonStyles({ intent }))}
+      onClick={onClick}
       {...props}
     >
       {intent === "secondary" && icon}

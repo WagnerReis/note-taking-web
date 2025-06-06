@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Archive } from "@/components/ui/icons/archive";
 import { Delete } from "@/components/ui/icons/delete";
+import { useNotesStore } from "@/store/notes/useNotesStore";
 
 export function SidebarRight() {
+  const { selectedNote, removeNote } = useNotesStore();
+
   const iconClassName = "text-black dark:text-white";
 
   return (
@@ -16,6 +19,7 @@ export function SidebarRight() {
         intent="secondary"
         text="Delete Note"
         icon={<Delete className={iconClassName} />}
+        onClick={() => removeNote(selectedNote?.id ?? "")}
       />
     </div>
   );
