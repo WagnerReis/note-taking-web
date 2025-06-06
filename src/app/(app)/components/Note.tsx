@@ -4,19 +4,12 @@ import { formatDate } from "@/utils/formatDate";
 import { Tag } from "./Tag";
 import { twMerge } from "tailwind-merge";
 import { useResponsive } from "@/hooks/use-responsive";
+import { Note as NoteInterface } from "@/store/notes/useNotesStore";
 
 export interface NoteProps {
-  note: {
-    id: string;
-    title: string;
-    content: string;
-    status: string;
-    tags: string[];
-    createdAt: Date;
-    updatedAt: Date;
-  };
-  selected: boolean
-  onSelected: (noteId: string) => void
+  note: NoteInterface;
+  selected: boolean;
+  onSelected: (note: NoteInterface) => void;
 }
 
 export function Note({ note, onSelected, selected = false }: NoteProps) {
@@ -24,9 +17,10 @@ export function Note({ note, onSelected, selected = false }: NoteProps) {
 
   return (
     <div
-      onClick={() => onSelected(note.id)}
-      className={twMerge("flex w-full flex-col gap-3 p-2 rounded-6",
-        (isDesktop && selected) && "bg-neutral-100 dark:bg-neutral-800"
+      onClick={() => onSelected(note)}
+      className={twMerge(
+        "rounded-6 flex w-full flex-col gap-3 p-2",
+        isDesktop && selected && "bg-neutral-100 dark:bg-neutral-800",
       )}
     >
       <Preset3 className="text-neutral-950 dark:text-white">
@@ -41,5 +35,5 @@ export function Note({ note, onSelected, selected = false }: NoteProps) {
         {formatDate(note.createdAt)}
       </Preset6>
     </div>
-  )
+  );
 }

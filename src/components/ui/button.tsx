@@ -19,7 +19,9 @@ const buttonStyles = cva("rounded-8  w-full h-11 cursor-custom", {
         "focus:ring-neutral-300",
         "dark:focus:ring-neutral-500",
       ],
-      secondary: ["border border-neutral-300 dark:border-neutral-600 flex items-center pl-4 gap-2"],
+      secondary: [
+        "border border-neutral-300 dark:border-neutral-600 flex items-center pl-4 gap-2",
+      ],
     },
     defaultVariants: {
       intent: "primary",

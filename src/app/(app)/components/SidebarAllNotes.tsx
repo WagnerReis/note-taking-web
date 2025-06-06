@@ -6,43 +6,16 @@ import { twMerge } from "tailwind-merge";
 import { Plus } from "../../../components/ui/icons/plus";
 import { useIsMounted } from "@/hooks/use-is-mounted";
 import { Divider } from "../../../components/ui/divider";
-import { Note, NoteProps } from "./Note";
-import { useState } from "react";
-
-const notes = [
-  {
-    id: "683604b77d6665d2b5ce357d",
-    title: "tal coisa",
-    content: "content",
-    status: "archived",
-    tags: ["React", "Node"],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: "683604b77d6665d2b5ce3511",
-    title: "tal coisa",
-    content: "content",
-    status: "archived",
-    tags: ["React", "Node"],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: "683604b17d6665d2b5ce3511",
-    title: "tal coisa",
-    content: "content",
-    status: "archived",
-    tags: ["React", "Node"],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
+import { Note } from "./Note";
+import {
+  Note as NoteInterface,
+  useNotesStore,
+} from "@/store/notes/useNotesStore";
 
 export function SidebarAllNotes() {
   const { isDesktop, isMobile, isTablet } = useResponsive();
-  const [selectedNoteId, setSelectedNoteId] = useState<string>("")
   const isMounted = useIsMounted();
+  const { notes, selectedNote, setSelectedNote } = useNotesStore();
 
   const isSmallScreen = isMobile || isTablet;
 
@@ -50,10 +23,9 @@ export function SidebarAllNotes() {
     return null;
   }
 
-  function handleSelectNote(noteId: string) {
-    setSelectedNoteId(noteId)
+  function handleSelectNote(note: NoteInterface) {
+    setSelectedNote(note);
   }
-
   return (
     <div
       className={twMerge(
@@ -79,11 +51,12 @@ export function SidebarAllNotes() {
         </div>
       )}
 
-      <div className="mt-4 cursor-custom">
+      <div className="cursor-custom mt-4">
         {notes.map((note, index) => {
           const isLast = index === notes.length - 1;
-          const isSelected = selectedNoteId === note.id && isDesktop;
-          const isNextSelected = notes[index + 1]?.id === selectedNoteId && isDesktop;
+          const isSelected = selectedNote?.id === note.id && isDesktop;
+          const isNextSelected =
+            notes[index + 1]?.id === selectedNote?.id && isDesktop;
 
           return (
             <div key={note.id}>
@@ -92,7 +65,11 @@ export function SidebarAllNotes() {
                 selected={isSelected}
                 onSelected={handleSelectNote}
               />
-              {(!isLast && !isSelected && !isNextSelected) ? <Divider /> : <hr className="border-transparent dark:border-transparent" />}
+              {!isLast && !isSelected && !isNextSelected ? (
+                <Divider />
+              ) : (
+                <hr className="border-transparent dark:border-transparent" />
+              )}
             </div>
           );
         })}
@@ -106,5 +83,3 @@ export function SidebarAllNotes() {
     </div>
   );
 }
-
-
