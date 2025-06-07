@@ -7,7 +7,6 @@ import { Tag } from "@/components/ui/icons/tag";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useNotesStore } from "@/store/notes/useNotesStore";
 import { formatDate } from "@/utils/formatDate";
-import { twMerge } from "tailwind-merge";
 import { MobilePageHeaderControl } from "./MobilePageHeaderControl";
 
 export function NoteContent() {
@@ -22,10 +21,7 @@ export function NoteContent() {
 
   return (
     <div
-      className={twMerge(
-        "flex h-full w-full flex-col space-y-3",
-        isDesktop ? "p-6" : "p-4",
-      )}
+      className="flex h-full w-full flex-col space-y-3 p-4 md:p-8 lg:p-6"
     >
       {isSmallScreen && <MobilePageHeaderControl />}
 
