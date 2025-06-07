@@ -27,6 +27,7 @@ const buttonStyles = cva(
           "hover:bg-neutral-200 dark:hover:bg-neutral-700",
           "text-neutral-600 dark:text-neutral-400",
         ],
+        destructive: ["bg-red-500", "hover:bg-red-700", "text-white"],
       },
       defaultVariants: {
         intent: "primary",

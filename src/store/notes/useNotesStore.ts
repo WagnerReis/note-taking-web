@@ -1,6 +1,6 @@
 import { apiClient } from "@/lib/api-client";
 import { create } from "zustand";
-import { persist } from 'zustand/middleware';
+import { persist } from "zustand/middleware";
 
 export interface Note {
   id: string;
@@ -22,7 +22,7 @@ interface NotesState {
   addNote: (
     note: Omit<Note, "id" | "createdAt" | "updatedAt">,
   ) => Promise<void>;
-  updateNote: (id: string, note: Partial<Note>) => Promise<void>;
+  updateNote: (note: Partial<Note>) => Promise<void>;
   removeNote: (noteId: string) => Promise<void>;
   archiveNote: (noteId: string) => Promise<void>;
   unarchiveNote: (noteId: string) => Promise<void>;
@@ -81,9 +81,59 @@ export const useNotesStore = create<NotesState>()(
         }
       },
 
+      archiveNote: async (noteId: string) => {
+        try {
+          const response = await apiClient.patch(`/notes/${noteId}/archive`);
+
+          if (!response.ok) {
+            throw new Error("Error on archive note");
+          }
+
+          set((state) => ({
+            notes: state.notes.filter((note) => note.id !== noteId),
+            selectedNote:
+              state.selectedNote?.id === noteId ? null : state.selectedNote,
+            loading: false,
+          }));
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : "unknown error",
+            loading: false,
+          });
+        }
+      },
+
+      updateNote: async (note: Partial<Note>) => {
+        set({ loading: true, error: null });
+        try {
+          const response = await apiClient.put(`/notes/${note.id}`, note);
+
+          if (!response.ok) {
+            throw new Error("Error on update note");
+          }
+
+          set((state) => ({
+            notes: state.notes.map((n) => {
+              if (n.id === note.id) {
+                return { ...n, ...note };
+              }
+              return n;
+            }),
+            selectedNote:
+              state.selectedNote?.id === note.id
+                ? ({ ...state.selectedNote, ...note } as Note)
+                : state.selectedNote,
+            loading: false,
+          }));
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : "unknown error",
+            loading: false,
+          });
+        }
+      },
+
       addNote: async (note: Omit<Note, "id" | "createdAt" | "updatedAt">) => {},
-      updateNote: async (id: string, note: Partial<Note>) => {},
-      archiveNote: async () => {},
       unarchiveNote: async () => {},
       searchNotes: async () => {},
     }),
@@ -93,6 +143,6 @@ export const useNotesStore = create<NotesState>()(
         notes: state.notes,
         selectedNote: state.selectedNote,
       }),
-    }
-  )
+    },
+  ),
 );
