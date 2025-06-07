@@ -21,7 +21,7 @@ export default function BaseIcon({
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={twMerge("text-neutral-600 dark:text-neutral-400", className)}
+      className={twMerge("text-neutral-600 dark:text-neutral-300", className)}
     >
       {children}
     </svg>

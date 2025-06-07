@@ -8,14 +8,17 @@ import { useResponsive } from "@/hooks/use-responsive";
 import { useNotesStore } from "@/store/notes/useNotesStore";
 import { formatDate } from "@/utils/formatDate";
 import { twMerge } from "tailwind-merge";
+import { MobilePageHeaderControl } from "./MobilePageHeaderControl";
 
 export function NoteContent() {
   const { selectedNote: note, setSelectedNote } = useNotesStore();
-  const { isDesktop } = useResponsive();
+  const { isDesktop, isMobile, isTablet } = useResponsive();
 
   if (!note) {
     return null;
   }
+
+  const isSmallScreen = isMobile || isTablet;
 
   return (
     <div
@@ -24,6 +27,8 @@ export function NoteContent() {
         isDesktop ? "p-6" : "p-4",
       )}
     >
+      {isSmallScreen && <MobilePageHeaderControl />}
+
       <Preset1>{note.title}</Preset1>
 
       <div>

@@ -1,14 +1,13 @@
 "use client";
-import { useResponsive } from "@/hooks/use-responsive";
-import { ReactElement, ReactNode, useState } from "react";
-import { MenuItem } from "./MenuItem";
+import { Archive } from "@/components/ui/icons/archive";
 import { Home } from "@/components/ui/icons/home";
 import { Search } from "@/components/ui/icons/search";
-import { Archive } from "@/components/ui/icons/archive";
-import { Tag } from "@/components/ui/icons/tag";
 import { Setting } from "@/components/ui/icons/setting";
+import { Tag } from "@/components/ui/icons/tag";
 import { useIsMounted } from "@/hooks/use-is-mounted";
-import Link from "next/link";
+import { useResponsive } from "@/hooks/use-responsive";
+import { ReactElement, useState } from "react";
+import { MenuItem } from "./MenuItem";
 
 interface MenuBarItemProps {
   icon: ReactElement<any, any>;
@@ -56,7 +55,7 @@ export function MenuBar() {
   return (
     <>
       {(isMobile || isTablet) && (
-        <main className="shadow-top absolute bottom-0 z-999 h-[56px] w-full border-t border-neutral-200 md:h-[74px] dark:border-neutral-800">
+        <main className="shadow-top absolute bottom-0 z-999999 h-[56px] w-full border-t border-neutral-200 md:h-[74px] dark:border-neutral-800">
           <ul className="flex h-full w-full items-center justify-center">
             {listItems.map((item) => (
               <MenuItem

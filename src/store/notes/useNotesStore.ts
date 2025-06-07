@@ -1,5 +1,6 @@
 import { apiClient } from "@/lib/api-client";
 import { create } from "zustand";
+import { persist } from 'zustand/middleware';
 
 export interface Note {
   id: string;
@@ -28,59 +29,70 @@ interface NotesState {
   searchNotes: (query: string) => Promise<void>;
 }
 
-export const useNotesStore = create<NotesState>((set) => ({
-  notes: [],
-  selectedNote: null,
-  loading: false,
-  error: null,
+export const useNotesStore = create<NotesState>()(
+  persist(
+    (set) => ({
+      notes: [],
+      selectedNote: null,
+      loading: false,
+      error: null,
 
-  fetchNotes: async () => {
-    set({ loading: true, error: null });
-    try {
-      const response = await apiClient.get("/notes");
+      fetchNotes: async () => {
+        set({ loading: true, error: null });
+        try {
+          const response = await apiClient.get("/notes");
 
-      if (!response.ok) {
-        throw new Error("Error on fetch notes");
-      }
-      const notes = await response.json();
-      set({ notes, loading: false });
-    } catch (error) {
-      set({
-        error: error instanceof Error ? error.message : "unknown error",
-        loading: false,
-      });
+          if (!response.ok) {
+            throw new Error("Error on fetch notes");
+          }
+          const notes = await response.json();
+          set({ notes, loading: false });
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : "unknown error",
+            loading: false,
+          });
+        }
+      },
+
+      setSelectedNote: (note: Note | null) =>
+        set((state) => ({ ...state, selectedNote: note })),
+
+      removeNote: async (noteId: string) => {
+        set({ loading: true, error: null });
+        try {
+          const response = await apiClient.delete(`/notes/${noteId}`);
+
+          if (!response.ok) {
+            throw new Error("Error on delete note");
+          }
+
+          set((state) => ({
+            notes: state.notes.filter((note) => note.id !== noteId),
+            selectedNote:
+              state.selectedNote?.id === noteId ? null : state.selectedNote,
+            loading: false,
+          }));
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : "unknown error",
+            loading: false,
+          });
+        }
+      },
+
+      addNote: async (note: Omit<Note, "id" | "createdAt" | "updatedAt">) => {},
+      updateNote: async (id: string, note: Partial<Note>) => {},
+      archiveNote: async () => {},
+      unarchiveNote: async () => {},
+      searchNotes: async () => {},
+    }),
+    {
+      name: "@note-taking-app:notes-storage",
+      partialize: (state) => ({
+        notes: state.notes,
+        selectedNote: state.selectedNote,
+      }),
     }
-  },
-
-  setSelectedNote: (note: Note | null) =>
-    set((state) => ({ ...state, selectedNote: note })),
-
-  removeNote: async (noteId: string) => {
-    set({ loading: true, error: null });
-    try {
-      const response = await apiClient.delete(`/notes/${noteId}`);
-
-      if (!response.ok) {
-        throw new Error("Error on delete note");
-      }
-
-      set((state) => ({
-        notes: state.notes.filter((note) => note.id !== noteId),
-        selectedNote:
-          state.selectedNote?.id === noteId ? null : state.selectedNote,
-        loading: false,
-      }));
-    } catch (error) {
-      set({
-        error: error instanceof Error ? error.message : "unknown error",
-        loading: false,
-      });
-    }
-  },
-
-  addNote: async (note: Omit<Note, "id" | "createdAt" | "updatedAt">) => {},
-  updateNote: async (id: string, note: Partial<Note>) => {},
-  archiveNote: async () => {},
-  unarchiveNote: async () => {},
-  searchNotes: async () => {},
-}));
+  )
+);
