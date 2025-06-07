@@ -1,21 +1,23 @@
 "use client";
-import { useResponsive } from "@/hooks/use-responsive";
-import { Preset1, Preset5 } from "../../../components/Typography";
-import { Button } from "../../../components/ui/button";
-import { twMerge } from "tailwind-merge";
-import { Plus } from "../../../components/ui/icons/plus";
 import { useIsMounted } from "@/hooks/use-is-mounted";
-import { Divider } from "../../../components/ui/divider";
-import { Note } from "./Note";
+import { useResponsive } from "@/hooks/use-responsive";
 import {
   Note as NoteInterface,
   useNotesStore,
 } from "@/store/notes/useNotesStore";
+import { useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
+import { Preset1, Preset5 } from "../../../components/Typography";
+import { Button } from "../../../components/ui/button";
+import { Divider } from "../../../components/ui/divider";
+import { Plus } from "../../../components/ui/icons/plus";
+import { Note } from "./Note";
 
 export function SidebarAllNotes() {
   const { isDesktop, isMobile, isTablet } = useResponsive();
-  const isMounted = useIsMounted();
   const { notes, selectedNote, setSelectedNote } = useNotesStore();
+  const isMounted = useIsMounted();
+  const router = useRouter();
 
   const isSmallScreen = isMobile || isTablet;
 
@@ -26,6 +28,7 @@ export function SidebarAllNotes() {
   function handleSelectNote(note: NoteInterface) {
     setSelectedNote(note);
   }
+  
   return (
     <div
       className={twMerge(
@@ -63,7 +66,13 @@ export function SidebarAllNotes() {
               <Note
                 note={note}
                 selected={isSelected}
-                onSelected={handleSelectNote}
+                onSelected={() => {
+                  handleSelectNote(note);
+
+                  if (isSmallScreen) {
+                    router.push(`/notes/${note.id}`);
+                  }
+                }}
               />
               {!isLast && !isSelected && !isNextSelected ? (
                 <Divider />
@@ -75,7 +84,7 @@ export function SidebarAllNotes() {
         })}
       </div>
 
-      {(isMobile || isTablet) && (
+      {isSmallScreen && (
         <button className="absolute right-4 bottom-[72px] flex h-[3rem] w-[3rem] items-center justify-center rounded-full bg-blue-500 md:right-8 md:bottom-[106px] md:h-[4rem] md:w-[4rem]">
           <Plus className="folt-bold h-6 w-6 text-white dark:text-white" />
         </button>
