@@ -6,20 +6,32 @@ import { Delete } from "@/components/ui/icons/delete";
 import { useNotesStore } from "@/store/notes/useNotesStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ModalArchive } from "./ModalArchive";
 import { ModalDelete } from "./ModalDelete";
 
 export function MobilePageHeaderControl() {
   const router = useRouter();
-  const { selectedNote, removeNote } = useNotesStore();
-  const [isOpen, setIsOpen] = useState(false);
+  const { selectedNote, removeNote, archiveNote } = useNotesStore();
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [isOpenArchiveModal, setIsOpenArchiveModal] = useState(false);
 
-  function handleOpenChange() {
-    setIsOpen((prev) => !prev);
+  function handleOpenChangeDelete() {
+    setIsOpenDeleteModal((prev) => !prev);
   }
 
-  async function handleConfirm() {
+  function handleOpenChangeArchive() {
+    setIsOpenArchiveModal((prev) => !prev);
+  }
+
+  async function handleConfirmDelete() {
     await removeNote(selectedNote?.id as string);
-    handleOpenChange();
+    handleOpenChangeDelete();
+    router.back();
+  }
+
+  async function handleConfirmArchive() {
+    await archiveNote(selectedNote?.id as string);
+    handleOpenChangeArchive();
     router.back();
   }
 
@@ -36,10 +48,14 @@ export function MobilePageHeaderControl() {
       </div>
 
       <div className="flex items-center gap-4">
-        <button onClick={handleOpenChange}>
+        <button onClick={handleOpenChangeDelete}>
           <Delete className="h-[18px] w-[18px]" />
         </button>
-        <Archive className="h-[18px] w-[18px]" />
+        
+        <button onClick={handleOpenChangeArchive}>
+          <Archive className="h-[18px] w-[18px]" />
+        </button>
+
         <div
           className="mt-[2px] text-neutral-600 dark:text-neutral-300"
           onClick={() => router.back()}
@@ -50,9 +66,15 @@ export function MobilePageHeaderControl() {
       </div>
 
       <ModalDelete
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        handleConfirm={handleConfirm}
+        isOpen={isOpenDeleteModal}
+        setIsOpen={setIsOpenDeleteModal}
+        handleConfirm={handleConfirmDelete}
+      />
+
+      <ModalArchive 
+        isOpen={isOpenArchiveModal}
+        setIsOpen={setIsOpenArchiveModal}
+        handleConfirm={handleConfirmArchive}
       />
     </div>
   );

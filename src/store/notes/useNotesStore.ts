@@ -81,9 +81,30 @@ export const useNotesStore = create<NotesState>()(
         }
       },
 
+      archiveNote: async (noteId: string) => {
+        try {
+          const response = await apiClient.patch(`/notes/${noteId}/archive`);
+
+          if (!response.ok) {
+            throw new Error("Error on archive note");
+          }
+
+          set((state) => ({
+            notes: state.notes.filter((note) => note.id !== noteId),
+            selectedNote:
+              state.selectedNote?.id === noteId ? null : state.selectedNote,
+            loading: false,
+          }));
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : "unknown error",
+            loading: false,
+          });
+        }
+      },
+
       addNote: async (note: Omit<Note, "id" | "createdAt" | "updatedAt">) => {},
       updateNote: async (id: string, note: Partial<Note>) => {},
-      archiveNote: async () => {},
       unarchiveNote: async () => {},
       searchNotes: async () => {},
     }),

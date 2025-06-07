@@ -103,10 +103,10 @@ class ApiClient {
     });
   }
 
-  async put(url: string, data?: any, options?: RequestInit): Promise<Response> {
+  async patch(url: string, data?: any, options?: RequestInit): Promise<Response> {
     return this.fetch(url, {
       ...options,
-      method: "PUT",
+      method: "PATCH",
       body: data ? JSON.stringify(data) : undefined,
     });
   }
