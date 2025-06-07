@@ -33,7 +33,7 @@ export function SidebarAllNotes() {
     <div
       className={twMerge(
         "h-[calc(100vh-5.0625rem)] p-200 lg:border-r lg:border-neutral-200 lg:p-250 dark:border-neutral-800",
-        isDesktop && "min-w-[272px]",
+        isDesktop && "max-w-[272px]",
         isSmallScreen && "w-full",
       )}
     >

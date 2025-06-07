@@ -1,39 +1,17 @@
-"use client";
 import { Preset5 } from "@/components/Typography";
 import { Archive } from "@/components/ui/icons/archive";
 import { ArrowLeft2 } from "@/components/ui/icons/arrow-left2";
 import { Delete } from "@/components/ui/icons/delete";
-import { useNotesStore } from "@/store/notes/useNotesStore";
+import { useArchiveModal } from "@/hooks/use-archive-modal";
+import { useDeleteModal } from "@/hooks/use-delete-modal";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { ModalArchive } from "./ModalArchive";
 import { ModalDelete } from "./ModalDelete";
 
 export function MobilePageHeaderControl() {
   const router = useRouter();
-  const { selectedNote, removeNote, archiveNote } = useNotesStore();
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [isOpenArchiveModal, setIsOpenArchiveModal] = useState(false);
-
-  function handleOpenChangeDelete() {
-    setIsOpenDeleteModal((prev) => !prev);
-  }
-
-  function handleOpenChangeArchive() {
-    setIsOpenArchiveModal((prev) => !prev);
-  }
-
-  async function handleConfirmDelete() {
-    await removeNote(selectedNote?.id as string);
-    handleOpenChangeDelete();
-    router.back();
-  }
-
-  async function handleConfirmArchive() {
-    await archiveNote(selectedNote?.id as string);
-    handleOpenChangeArchive();
-    router.back();
-  }
+  const { isOpenDeleteModal,  handleOpenChangeDelete, handleConfirmDelete } = useDeleteModal({ isMobile: true });
+  const { isOpenArchiveModal, handleOpenChangeArchive, handleConfirmArchive } = useArchiveModal({ isMobile: true });
 
   return (
     <div className="flex h-[30px] w-full justify-between border-b border-neutral-200 pb-2 md:h-[50px] dark:border-neutral-800">
@@ -67,13 +45,13 @@ export function MobilePageHeaderControl() {
 
       <ModalDelete
         isOpen={isOpenDeleteModal}
-        setIsOpen={setIsOpenDeleteModal}
+        setIsOpen={handleOpenChangeDelete}
         handleConfirm={handleConfirmDelete}
       />
 
       <ModalArchive 
         isOpen={isOpenArchiveModal}
-        setIsOpen={setIsOpenArchiveModal}
+        setIsOpen={handleOpenChangeArchive}
         handleConfirm={handleConfirmArchive}
       />
     </div>
