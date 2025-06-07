@@ -1,6 +1,6 @@
 import { apiClient } from "@/lib/api-client";
 import { create } from "zustand";
-import { persist } from 'zustand/middleware';
+import { persist } from "zustand/middleware";
 
 export interface Note {
   id: string;
@@ -93,6 +93,6 @@ export const useNotesStore = create<NotesState>()(
         notes: state.notes,
         selectedNote: state.selectedNote,
       }),
-    }
-  )
+    },
+  ),
 );

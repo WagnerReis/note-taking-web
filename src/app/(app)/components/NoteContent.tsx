@@ -20,9 +20,7 @@ export function NoteContent() {
   const isSmallScreen = isMobile || isTablet;
 
   return (
-    <div
-      className="flex h-full w-full flex-col space-y-3 p-4 md:p-8 lg:p-6"
-    >
+    <div className="flex h-full w-full flex-col space-y-3 p-4 md:p-8 lg:p-6">
       {isSmallScreen && <MobilePageHeaderControl />}
 
       <Preset1>{note.title}</Preset1>

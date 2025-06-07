@@ -28,7 +28,7 @@ export function SidebarAllNotes() {
   function handleSelectNote(note: NoteInterface) {
     setSelectedNote(note);
   }
-  
+
   return (
     <div
       className={twMerge(
