@@ -10,8 +10,10 @@ import { ModalDelete } from "./ModalDelete";
 
 export function MobilePageHeaderControl() {
   const router = useRouter();
-  const { isOpenDeleteModal,  handleOpenChangeDelete, handleConfirmDelete } = useDeleteModal({ isMobile: true });
-  const { isOpenArchiveModal, handleOpenChangeArchive, handleConfirmArchive } = useArchiveModal({ isMobile: true });
+  const { isOpenDeleteModal, handleOpenChangeDelete, handleConfirmDelete } =
+    useDeleteModal({ isMobile: true });
+  const { isOpenArchiveModal, handleOpenChangeArchive, handleConfirmArchive } =
+    useArchiveModal({ isMobile: true });
 
   return (
     <div className="flex h-[30px] w-full justify-between border-b border-neutral-200 pb-2 md:h-[50px] dark:border-neutral-800">
@@ -26,11 +28,11 @@ export function MobilePageHeaderControl() {
       </div>
 
       <div className="flex items-center gap-4">
-        <button onClick={handleOpenChangeDelete}>
+        <button type="button" onClick={handleOpenChangeDelete}>
           <Delete className="h-[18px] w-[18px]" />
         </button>
-        
-        <button onClick={handleOpenChangeArchive}>
+
+        <button type="button" onClick={handleOpenChangeArchive}>
           <Archive className="h-[18px] w-[18px]" />
         </button>
 
@@ -40,7 +42,9 @@ export function MobilePageHeaderControl() {
         >
           <Preset5>Cancel</Preset5>
         </div>
-        <Preset5 className="mt-[2px] text-blue-500">Save Note</Preset5>
+        <button type="submit">
+          <Preset5 className="mt-[2px] text-blue-500">Save Note</Preset5>
+        </button>
       </div>
 
       <ModalDelete
@@ -49,7 +53,7 @@ export function MobilePageHeaderControl() {
         handleConfirm={handleConfirmDelete}
       />
 
-      <ModalArchive 
+      <ModalArchive
         isOpen={isOpenArchiveModal}
         setIsOpen={handleOpenChangeArchive}
         handleConfirm={handleConfirmArchive}
