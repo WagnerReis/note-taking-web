@@ -7,16 +7,10 @@ import { ModalArchive } from "./ModalArchive";
 import { ModalDelete } from "./ModalDelete";
 
 export function SidebarRight() {
-  const { 
-    isOpenDeleteModal, 
-    handleOpenChangeDelete, 
-    handleConfirmDelete 
-  } = useDeleteModal({ isMobile: false });
-  const { 
-    isOpenArchiveModal, 
-    handleOpenChangeArchive, 
-    handleConfirmArchive 
-  } = useArchiveModal({ isMobile: false });
+  const { isOpenDeleteModal, handleOpenChangeDelete, handleConfirmDelete } =
+    useDeleteModal({ isMobile: false });
+  const { isOpenArchiveModal, handleOpenChangeArchive, handleConfirmArchive } =
+    useArchiveModal({ isMobile: false });
 
   const iconClassName = "text-black dark:text-white";
 
@@ -41,8 +35,8 @@ export function SidebarRight() {
         setIsOpen={handleOpenChangeDelete}
         handleConfirm={handleConfirmDelete}
       />
-      
-      <ModalArchive 
+
+      <ModalArchive
         isOpen={isOpenArchiveModal}
         setIsOpen={handleOpenChangeArchive}
         handleConfirm={handleConfirmArchive}

@@ -2,7 +2,7 @@ import { useNotesStore } from "@/store/notes/useNotesStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function useArchiveModal({ isMobile}: { isMobile: boolean }) {
+export function useArchiveModal({ isMobile }: { isMobile: boolean }) {
   const { selectedNote, archiveNote } = useNotesStore();
   const [isOpenArchiveModal, setIsOpenArchiveModal] = useState(false);
   const router = useRouter();
@@ -14,7 +14,7 @@ export function useArchiveModal({ isMobile}: { isMobile: boolean }) {
   async function handleConfirmArchive() {
     await archiveNote(selectedNote?.id as string);
     handleOpenChangeArchive();
-    
+
     if (isMobile) router.back();
   }
 

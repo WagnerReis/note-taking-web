@@ -115,14 +115,16 @@ export const useNotesStore = create<NotesState>()(
           set((state) => ({
             notes: state.notes.map((n) => {
               if (n.id === note.id) {
-                return { ...n, ...note};
+                return { ...n, ...note };
               }
               return n;
             }),
             selectedNote:
-              state.selectedNote?.id === note.id ? { ...state.selectedNote, ...note } as Note : state.selectedNote,
+              state.selectedNote?.id === note.id
+                ? ({ ...state.selectedNote, ...note } as Note)
+                : state.selectedNote,
             loading: false,
-          }));        
+          }));
         } catch (error) {
           set({
             error: error instanceof Error ? error.message : "unknown error",
@@ -130,7 +132,7 @@ export const useNotesStore = create<NotesState>()(
           });
         }
       },
-      
+
       addNote: async (note: Omit<Note, "id" | "createdAt" | "updatedAt">) => {},
       unarchiveNote: async () => {},
       searchNotes: async () => {},

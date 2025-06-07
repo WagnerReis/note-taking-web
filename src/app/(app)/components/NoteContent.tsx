@@ -41,9 +41,9 @@ export function NoteContent() {
 
   async function onSubmit(data: NoteFormData) {
     const tagsArray = data.tags
-                        .split(",")
-                        .map(tag => tag.trim())
-                        .filter(Boolean);
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean);
 
     await updateNote({
       id: note?.id,
