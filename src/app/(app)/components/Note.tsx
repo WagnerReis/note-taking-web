@@ -1,26 +1,33 @@
 "use client";
-import { Preset3, Preset5, Preset6 } from "@/components/Typography";
-import { formatDate } from "@/utils/formatDate";
-import { Tag } from "./Tag";
-import { twMerge } from "tailwind-merge";
+import { Preset3, Preset6 } from "@/components/Typography";
 import { useResponsive } from "@/hooks/use-responsive";
-import { Note as NoteInterface } from "@/store/notes/useNotesStore";
+import { Note as NoteInterface, useNotesStore } from "@/store/notes/useNotesStore";
+import { formatDate } from "@/utils/formatDate";
+import { useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
+import { Tag } from "./Tag";
 
 export interface NoteProps {
   note: NoteInterface;
-  selected: boolean;
-  onSelected: (note: NoteInterface) => void;
 }
 
-export function Note({ note, onSelected, selected = false }: NoteProps) {
-  const { isDesktop } = useResponsive();
+export function Note({ note, }: NoteProps) {
+  const { isSmallScreen } = useResponsive();
+  const { selectedNote, setSelectedNote } = useNotesStore();
+  const router = useRouter();
 
   return (
     <div
-      onClick={() => onSelected(note)}
+      onClick={() => {
+        setSelectedNote(note);
+
+        if (isSmallScreen) {
+          router.push(`/notes/${note.id}`);
+        }
+      }}
       className={twMerge(
         "rounded-6 flex w-full flex-col gap-3 p-2",
-        isDesktop && selected && "bg-neutral-100 dark:bg-neutral-800",
+        selectedNote?.id === note.id && "bg-neutral-100 dark:bg-neutral-800",
       )}
     >
       <Preset3 className="text-neutral-950 dark:text-white">

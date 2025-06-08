@@ -2,8 +2,7 @@
 import { useIsMounted } from "@/hooks/use-is-mounted";
 import { useResponsive } from "@/hooks/use-responsive";
 import {
-  Note as NoteInterface,
-  useNotesStore,
+  useNotesStore
 } from "@/store/notes/useNotesStore";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
@@ -15,7 +14,7 @@ import { Note } from "./Note";
 
 export function SidebarAllNotes() {
   const { isDesktop, isMobile, isTablet } = useResponsive();
-  const { notes, selectedNote, setSelectedNote } = useNotesStore();
+  const { notes, selectedNote, setSelectedNote, setView } = useNotesStore();
   const isMounted = useIsMounted();
   const router = useRouter();
 
@@ -25,20 +24,24 @@ export function SidebarAllNotes() {
     return null;
   }
 
-  function handleSelectNote(note: NoteInterface) {
-    setSelectedNote(note);
+  function handleOpenCreateNote() {
+    setSelectedNote(null)
+    setView("create")
+    if (isSmallScreen) {
+      router.push("/notes/new")
+    }
   }
 
   return (
     <div
       className={twMerge(
-        "h-[calc(100vh-5.0625rem)] p-200 lg:border-r lg:border-neutral-200 lg:p-250 dark:border-neutral-800",
+        "h-[calc(100vh-5.0625rem)] p-200 lg:border-r lg:border-neutral-200 lg:p-250 dark:border-neutral-800 overflow-auto",
         isDesktop && "max-w-[272px] min-w-[272px]",
         isSmallScreen && "w-full",
       )}
     >
       {isDesktop && (
-        <header>
+        <header onClick={handleOpenCreateNote}>
           <Button intent="primary" text="+ Create New Note" />
         </header>
       )}
@@ -63,17 +66,7 @@ export function SidebarAllNotes() {
 
           return (
             <div key={note.id}>
-              <Note
-                note={note}
-                selected={isSelected}
-                onSelected={() => {
-                  handleSelectNote(note);
-
-                  if (isSmallScreen) {
-                    router.push(`/notes/${note.id}`);
-                  }
-                }}
-              />
+              <Note note={note} />
               {!isLast && !isSelected && !isNextSelected ? (
                 <Divider />
               ) : (
@@ -85,7 +78,12 @@ export function SidebarAllNotes() {
       </div>
 
       {isSmallScreen && (
-        <button className="absolute right-4 bottom-[72px] flex h-[3rem] w-[3rem] items-center justify-center rounded-full bg-blue-500 md:right-8 md:bottom-[106px] md:h-[4rem] md:w-[4rem]">
+        <button className={twMerge(
+          "absolute right-4 bottom-[72px] flex h-[3rem] w-[3rem] items-center justify-center",
+          "rounded-full bg-blue-500 md:right-8 md:bottom-[106px] md:h-[4rem] md:w-[4rem]"
+        )}
+          onClick={handleOpenCreateNote}
+        >
           <Plus className="folt-bold h-6 w-6 text-white dark:text-white" />
         </button>
       )}
