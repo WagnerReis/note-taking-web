@@ -133,7 +133,29 @@ export const useNotesStore = create<NotesState>()(
         }
       },
 
-      addNote: async (note: Omit<Note, "id" | "createdAt" | "updatedAt">) => {},
+      addNote: async (note: Omit<Note, "id" | "createdAt" | "updatedAt">) => {
+        set({ loading: true, error: null });
+        try {
+          const response = await apiClient.post("/notes", note);
+
+          if (!response.ok) {
+            throw new Error("Error on add note");
+          }
+
+          const newNote = await response.json();
+          set((state) => ({
+            notes: [newNote, ...state.notes],
+            selectedNote: newNote,
+            loading: false,
+          }));
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : "unknown error",
+            loading: false,
+          });
+        }
+      },     
+      
       unarchiveNote: async () => {},
       searchNotes: async () => {},
     }),
