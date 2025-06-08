@@ -23,8 +23,8 @@ const buttonStyles = cva(
           "border border-neutral-300 dark:border-neutral-600 flex items-center pl-4 gap-2",
         ],
         tertiary: [
-          "bg-neutral-100 dark:bg-neutral-800",
-          "hover:bg-neutral-200 dark:hover:bg-neutral-700",
+          "bg-neutral-100 dark:bg-neutral-500",
+          "hover:bg-neutral-200 dark:hover:bg-neutral-600",
           "text-neutral-600 dark:text-neutral-400",
         ],
         destructive: ["bg-red-500", "hover:bg-red-700", "text-white"],
