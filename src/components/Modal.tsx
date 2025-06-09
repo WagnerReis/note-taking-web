@@ -1,4 +1,4 @@
-import { Dialog } from "radix-ui";
+import { Dialog, DialogOverlay, DialogPortal, DialogTitle } from "@radix-ui/react-dialog";
 import { cloneElement, ReactElement } from "react";
 import { twMerge } from "tailwind-merge";
 import { Preset3, Preset5 } from "./Typography";
@@ -25,9 +25,9 @@ export function Modal({
   onConfirm,
 }: ModalProps) {
   return (
-    <Dialog.Root open={open} onOpenChange={() => onOpenChange(!open)}>
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-40 bg-black/50">
+    <Dialog open={open} onOpenChange={() => onOpenChange(!open)}>
+      <DialogPortal>
+        <DialogOverlay className="fixed inset-0 z-40 bg-black/50">
           <div className="fixed inset-0 z-50 flex items-center justify-center transition-all duration-300 ease-in">
             <div
               className={twMerge(
@@ -45,9 +45,9 @@ export function Modal({
                   </div>
 
                   <div>
-                    <Dialog.Title className="mb-2 text-lg font-semibold">
+                    <DialogTitle className="mb-2 text-lg font-semibold">
                       <Preset3>{title}</Preset3>
-                    </Dialog.Title>
+                    </DialogTitle>
                     <div className="mb-4 text-gray-600">
                       <Preset5 className="text-neutral-700 dark:text-neutral-200">
                         {description}
@@ -74,8 +74,8 @@ export function Modal({
               </div>
             </div>
           </div>
-        </Dialog.Overlay>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </DialogOverlay>
+      </DialogPortal>
+    </Dialog>
   );
 }
