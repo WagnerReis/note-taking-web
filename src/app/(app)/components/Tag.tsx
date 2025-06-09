@@ -6,11 +6,13 @@ interface TagProps {
 
 export function Tag({ tag }: TagProps) {
   return (
-    <Preset5
-      key={tag}
-      className="rounded-4 bg-neutral-200 px-[6px] py-[2px] dark:bg-neutral-700"
-    >
-      {tag}
-    </Preset5>
+    <div className="flex-none">
+      <Preset5
+        key={tag}
+        className="rounded-4 bg-neutral-200 px-[6px] py-[2px] dark:bg-neutral-700"
+      >
+        {tag}
+      </Preset5>
+    </div>
   );
 }

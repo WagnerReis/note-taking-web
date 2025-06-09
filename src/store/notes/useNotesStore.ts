@@ -17,6 +17,8 @@ interface NotesState {
   loading: boolean;
   error: string | null;
   selectedNote: Note | null;
+  view: "show" | "create";
+  setView: (view: "show" | "create") => void;
   fetchNotes: () => Promise<void>;
   setSelectedNote: (note: Note | null) => void;
   addNote: (
@@ -36,6 +38,8 @@ export const useNotesStore = create<NotesState>()(
       selectedNote: null,
       loading: false,
       error: null,
+      view: "show",
+      setView: (view: "show" | "create") => set({ view }),
 
       fetchNotes: async () => {
         set({ loading: true, error: null });

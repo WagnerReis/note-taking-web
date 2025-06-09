@@ -8,6 +8,7 @@ import { useResponsive } from "@/hooks/use-responsive";
 import { useNotesStore } from "@/store/notes/useNotesStore";
 import { formatDate } from "@/utils/formatDate";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
@@ -26,17 +27,25 @@ interface NoteFormProps {
 }
 
 export function NoteForm({ onSubmit }: NoteFormProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm<NoteFormData>({
+  const { selectedNote: note, setSelectedNote } = useNotesStore();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<NoteFormData>({
     resolver: zodResolver(noteFormSchema),
     defaultValues: {
-      title: "",
-      tags: "",
-      content: "",
+      title: note?.title || "",
+      tags: note?.tags.join(", ") || "",
+      content: note?.content || "",
     }
   });
 
+  useEffect(() => {
+    reset({
+      title: note?.title || "",
+      tags: note?.tags.join(", ") || "",
+      content: note?.content || "",
+    });
+  }, [note, reset]);
+
   const { isSmallScreen } = useResponsive();
-  const { selectedNote: note, setSelectedNote } = useNotesStore();
 
   function getInputStyle(height: number) {
     return twMerge(
@@ -62,7 +71,6 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
       <Preset1>
         <input
           type="text"
-          defaultValue={note?.title}
           placeholder="Enter a title…"
           {...register("title")}
           className={twMerge(getInputStyle(9),
@@ -80,7 +88,6 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
           <Preset5 className="text-neutral-950 dark:text-white w-full">
             <input
               type="text"
-              defaultValue={note?.tags.join(", ")}
               placeholder="Add tags separated by commas (e.g. Work, Planning)"
               {...register("tags")}
               className={twMerge(getInputStyle(5),
@@ -104,13 +111,14 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
       </div>
 
       <Divider />
-      <textarea
-        id="content"
-        defaultValue={note?.content}
-        className="w-full flex-1 resize-none bg-transparent outline-none placeholder:text-neutral-700 dark:placeholder:text-neutral-100"
-        placeholder="Start typing your note here…"
-        {...register("content")}
-      />
+      <Preset5 className="h-full">
+        <textarea
+          id="content"
+          className="rounded-4 h-full w-full flex-1 resize-none bg-transparent outline-none placeholder:text-neutral-700 dark:placeholder:text-neutral-100"
+          placeholder="Start typing your note here…"
+          {...register("content")}
+        />
+      </Preset5>
 
       {errors && (
         <Preset5 className="flex gap-1 text-red-400">
