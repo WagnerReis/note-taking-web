@@ -43,7 +43,7 @@ export function MenuBar() {
     {
       icon: <Tag />,
       label: "Tag",
-      redirect: "/",
+      redirect: "/tags",
     },
     {
       icon: <Setting />,
