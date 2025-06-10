@@ -20,7 +20,7 @@ interface NotesState {
   view: "show" | "create";
   isArchived: boolean;
   setView: (view: "show" | "create") => void;
-  fetchNotes: (status: "active" | "archived") => Promise<void>;
+  fetchNotes: (status?: "active" | "archived") => Promise<void>;
   setSelectedNote: (note: Note | null) => void;
   addNote: (
     note: Omit<Note, "id" | "createdAt" | "updatedAt">,
