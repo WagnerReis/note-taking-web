@@ -1,9 +1,7 @@
 "use client";
 import { useIsMounted } from "@/hooks/use-is-mounted";
 import { useResponsive } from "@/hooks/use-responsive";
-import {
-  useNotesStore
-} from "@/store/notes/useNotesStore";
+import { useNotesStore } from "@/store/notes/useNotesStore";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { Preset1, Preset5 } from "../../../components/Typography";
@@ -25,17 +23,17 @@ export function SidebarAllNotes() {
   }
 
   function handleOpenCreateNote() {
-    setSelectedNote(null)
-    setView("create")
+    setSelectedNote(null);
+    setView("create");
     if (isSmallScreen) {
-      router.push("/notes/new")
+      router.push("/notes/new");
     }
   }
 
   return (
     <div
       className={twMerge(
-        "h-[calc(100vh-5.0625rem)] p-200 lg:border-r lg:border-neutral-200 lg:p-250 dark:border-neutral-800 overflow-auto",
+        "h-[calc(100vh-5.0625rem)] overflow-auto p-200 lg:border-r lg:border-neutral-200 lg:p-250 dark:border-neutral-800",
         isDesktop && "max-w-[272px] min-w-[272px]",
         isSmallScreen && "w-full",
       )}
@@ -78,10 +76,11 @@ export function SidebarAllNotes() {
       </div>
 
       {isSmallScreen && (
-        <button className={twMerge(
-          "absolute right-4 bottom-[72px] flex h-[3rem] w-[3rem] items-center justify-center",
-          "rounded-full bg-blue-500 md:right-8 md:bottom-[106px] md:h-[4rem] md:w-[4rem]"
-        )}
+        <button
+          className={twMerge(
+            "absolute right-4 bottom-[72px] flex h-[3rem] w-[3rem] items-center justify-center",
+            "rounded-full bg-blue-500 md:right-8 md:bottom-[106px] md:h-[4rem] md:w-[4rem]",
+          )}
           onClick={handleOpenCreateNote}
         >
           <Plus className="folt-bold h-6 w-6 text-white dark:text-white" />

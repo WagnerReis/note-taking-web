@@ -10,7 +10,6 @@ import { NoteContent } from "./components/NoteContent";
 import { SidebarRight } from "./components/SidebarRight";
 import NewNotePage from "./notes/new/page";
 
-
 export default function HomePage() {
   const { isAuthenticated, isLoading } = useAuth();
   const { isDesktop } = useResponsive();
@@ -34,10 +33,14 @@ export default function HomePage() {
   return (
     <AuthProvider>
       <div className="flex">
-        <SidebarAllNotes/>
+        <SidebarAllNotes />
         {isDesktop && (
           <>
-            {selectedNote || view === "show" ? <NoteContent /> : <NewNotePage />}
+            {selectedNote || view === "show" ? (
+              <NoteContent />
+            ) : (
+              <NewNotePage />
+            )}
             {selectedNote && <SidebarRight />}
           </>
         )}

@@ -51,7 +51,7 @@ export const useNotesStore = create<NotesState>()(
         } else {
           set({ isArchived: false });
         }
-        
+
         try {
           const response = await apiClient.get(`/notes?status=${status}`);
 
@@ -167,8 +167,8 @@ export const useNotesStore = create<NotesState>()(
             loading: false,
           });
         }
-      },     
-      
+      },
+
       restoreNote: async (noteId: string) => {
         set({ loading: true, error: null });
         try {

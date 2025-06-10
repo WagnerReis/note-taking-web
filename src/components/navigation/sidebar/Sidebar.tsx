@@ -43,10 +43,13 @@ export function Sidebar() {
   const { isDesktop } = useResponsive();
   const { fetchNotes } = useNotesStore();
 
-  const handleNavClick = useCallback((label: string, status: "active" | "archived") => {
-    setSelectedNav(label);
-    fetchNotes(status);
-  }, [fetchNotes]);
+  const handleNavClick = useCallback(
+    (label: string, status: "active" | "archived") => {
+      setSelectedNav(label);
+      fetchNotes(status);
+    },
+    [fetchNotes],
+  );
 
   const handleTagClick = useCallback((tag: string) => {
     setSelectedTag(tag);
@@ -79,7 +82,12 @@ export function Sidebar() {
                   label={item.label}
                   isMobile={false}
                   isActive={item.label === selectedNav}
-                  onActive={() => handleNavClick(item.label, item.status as "active" | "archived")}
+                  onActive={() =>
+                    handleNavClick(
+                      item.label,
+                      item.status as "active" | "archived",
+                    )
+                  }
                 />
               ))}
             </nav>

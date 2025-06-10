@@ -1,4 +1,9 @@
-import { Dialog, DialogOverlay, DialogPortal, DialogTitle } from "@radix-ui/react-dialog";
+import {
+  Dialog,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+} from "@radix-ui/react-dialog";
 import { cloneElement, ReactElement } from "react";
 import { twMerge } from "tailwind-merge";
 import { Preset3, Preset5 } from "./Typography";
@@ -73,7 +78,11 @@ export function Modal({
                   onClick={() => onOpenChange(!open)}
                 />
                 <Button
-                  intent={type === "archive" || type === "restore" ? "primary" : "destructive"}
+                  intent={
+                    type === "archive" || type === "restore"
+                      ? "primary"
+                      : "destructive"
+                  }
                   text={getConfirmButtonText()}
                   className="h-[41px] w-[110px]"
                   onClick={onConfirm}

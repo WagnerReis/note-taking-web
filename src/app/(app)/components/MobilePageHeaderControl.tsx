@@ -39,8 +39,17 @@ export function MobilePageHeaderControl() {
           <Delete className="h-[18px] w-[18px]" />
         </button>
 
-        <button type="button" onClick={isArchived ? handleOpenChangeRestore : handleOpenChangeArchive}>
-          { isArchived ? <RefreshLeft className="h-[18px] w-[18px]" /> : <Archive className="h-[18px] w-[18px]" /> }
+        <button
+          type="button"
+          onClick={
+            isArchived ? handleOpenChangeRestore : handleOpenChangeArchive
+          }
+        >
+          {isArchived ? (
+            <RefreshLeft className="h-[18px] w-[18px]" />
+          ) : (
+            <Archive className="h-[18px] w-[18px]" />
+          )}
         </button>
 
         <div

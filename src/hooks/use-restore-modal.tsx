@@ -21,6 +21,6 @@ export function useRestoreModal({ isMobile }: { isMobile: boolean }) {
   return {
     isOpenRestoreModal,
     handleOpenChangeRestore,
-    handleConfirmRestore
+    handleConfirmRestore,
   };
 }

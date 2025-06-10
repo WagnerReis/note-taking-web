@@ -13,13 +13,11 @@ import { ModalRestore } from "./ModalRestore";
 export function SidebarRight() {
   const { isOpenDeleteModal, handleOpenChangeDelete, handleConfirmDelete } =
     useDeleteModal({ isMobile: false });
-  const { 
-    isOpenArchiveModal, 
-    handleOpenChangeArchive, 
-    handleConfirmArchive,
-  } = useArchiveModal({ isMobile: false });
+  const { isOpenArchiveModal, handleOpenChangeArchive, handleConfirmArchive } =
+    useArchiveModal({ isMobile: false });
 
-  const { isOpenRestoreModal, handleOpenChangeRestore, handleConfirmRestore } = useRestoreModal({ isMobile: false });
+  const { isOpenRestoreModal, handleOpenChangeRestore, handleConfirmRestore } =
+    useRestoreModal({ isMobile: false });
 
   const { isArchived } = useNotesStore();
 
@@ -30,7 +28,13 @@ export function SidebarRight() {
       <Button
         intent="secondary"
         text={isArchived ? "Restore Note" : "Archive Note"}
-        icon={isArchived ? <RefreshLeft className={iconClassName} /> : <Archive className={iconClassName} />}
+        icon={
+          isArchived ? (
+            <RefreshLeft className={iconClassName} />
+          ) : (
+            <Archive className={iconClassName} />
+          )
+        }
         onClick={isArchived ? handleOpenChangeRestore : handleOpenChangeArchive}
       />
 
