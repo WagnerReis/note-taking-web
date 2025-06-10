@@ -3,6 +3,7 @@ import { Preset1, Preset5 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { CircleClock } from "@/components/ui/icons/circle-clock";
+import { Loading } from "@/components/ui/icons/loading";
 import { Tag } from "@/components/ui/icons/tag";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useNotesStore } from "@/store/notes/useNotesStore";
@@ -27,7 +28,7 @@ interface NoteFormProps {
 }
 
 export function NoteForm({ onSubmit }: NoteFormProps) {
-  const { selectedNote: note, setSelectedNote } = useNotesStore();
+  const { selectedNote: note, setSelectedNote, isArchived } = useNotesStore();
   const { register, handleSubmit, formState: { errors }, reset } = useForm<NoteFormData>({
     resolver: zodResolver(noteFormSchema),
     defaultValues: {
@@ -96,6 +97,18 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
             />
           </Preset5>
         </div>
+
+        {isArchived && (
+          <div className="flex h-[26px] items-center">
+            <Loading className="h-4 w-4" />
+            <Preset5 className="ml-1.5 inline w-[115px] text-neutral-700 dark:text-neutral-300">
+              Status
+            </Preset5>
+            <Preset5 className="text-neutral-950 dark:text-white">
+              Archived
+            </Preset5>
+          </div>
+        )}
 
         <div className="flex h-[26px] items-center">
           <CircleClock className="h-4 w-4" />

@@ -10,9 +10,6 @@ export function NoteContent() {
     return null;
   }
 
-
-  // console.log("render", note)
-
   async function onSubmit(data: NoteFormData) {
     const tagsArray = formatTags(data.tags);
     

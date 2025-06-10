@@ -10,7 +10,7 @@ interface ModalProps {
   icon: ReactElement<any, any>;
   title: string;
   description: string;
-  type: "archive" | "delete";
+  type: "archive" | "delete" | "restore";
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 }
@@ -24,6 +24,13 @@ export function Modal({
   type,
   onConfirm,
 }: ModalProps) {
+  function getConfirmButtonText() {
+    if (type === "archive") return "Archive";
+    if (type === "delete") return "Delete";
+    if (type === "restore") return "Restore";
+    return "Confirm";
+  }
+
   return (
     <Dialog open={open} onOpenChange={() => onOpenChange(!open)}>
       <DialogPortal>
@@ -66,8 +73,8 @@ export function Modal({
                   onClick={() => onOpenChange(!open)}
                 />
                 <Button
-                  intent={type === "archive" ? "primary" : "destructive"}
-                  text={type === "archive" ? "Archive" : "Delete"}
+                  intent={type === "archive" || type === "restore" ? "primary" : "destructive"}
+                  text={getConfirmButtonText()}
                   className="h-[41px] w-[110px]"
                   onClick={onConfirm}
                 />

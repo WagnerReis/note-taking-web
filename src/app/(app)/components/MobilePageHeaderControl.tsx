@@ -2,18 +2,25 @@ import { Preset5 } from "@/components/Typography";
 import { Archive } from "@/components/ui/icons/archive";
 import { ArrowLeft2 } from "@/components/ui/icons/arrow-left2";
 import { Delete } from "@/components/ui/icons/delete";
+import { RefreshLeft } from "@/components/ui/icons/refresh-left";
 import { useArchiveModal } from "@/hooks/use-archive-modal";
 import { useDeleteModal } from "@/hooks/use-delete-modal";
+import { useRestoreModal } from "@/hooks/use-restore-modal";
+import { useNotesStore } from "@/store/notes/useNotesStore";
 import { useRouter } from "next/navigation";
 import { ModalArchive } from "./ModalArchive";
 import { ModalDelete } from "./ModalDelete";
+import { ModalRestore } from "./ModalRestore";
 
 export function MobilePageHeaderControl() {
   const router = useRouter();
+  const { isArchived } = useNotesStore();
   const { isOpenDeleteModal, handleOpenChangeDelete, handleConfirmDelete } =
     useDeleteModal({ isMobile: true });
   const { isOpenArchiveModal, handleOpenChangeArchive, handleConfirmArchive } =
     useArchiveModal({ isMobile: true });
+  const { isOpenRestoreModal, handleOpenChangeRestore, handleConfirmRestore } =
+    useRestoreModal({ isMobile: true });
 
   return (
     <div className="flex h-[30px] w-full justify-between border-b border-neutral-200 pb-2 md:h-[50px] dark:border-neutral-800">
@@ -32,8 +39,8 @@ export function MobilePageHeaderControl() {
           <Delete className="h-[18px] w-[18px]" />
         </button>
 
-        <button type="button" onClick={handleOpenChangeArchive}>
-          <Archive className="h-[18px] w-[18px]" />
+        <button type="button" onClick={isArchived ? handleOpenChangeRestore : handleOpenChangeArchive}>
+          { isArchived ? <RefreshLeft className="h-[18px] w-[18px]" /> : <Archive className="h-[18px] w-[18px]" /> }
         </button>
 
         <div
@@ -57,6 +64,12 @@ export function MobilePageHeaderControl() {
         isOpen={isOpenArchiveModal}
         setIsOpen={handleOpenChangeArchive}
         handleConfirm={handleConfirmArchive}
+      />
+
+      <ModalRestore
+        isOpen={isOpenRestoreModal}
+        setIsOpen={handleOpenChangeRestore}
+        handleConfirm={handleConfirmRestore}
       />
     </div>
   );
