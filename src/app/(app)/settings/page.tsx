@@ -1,10 +1,12 @@
 "use client";
 import { SidebarSettings } from "@/app/(app)/settings/components/SidebarSettings";
-import { useState } from "react";
-import { ChangeTheme } from "./components/ChangeTheme";
-import { ChangeFont } from "./components/ChangeFont";
+import { Loading } from "@/components/Loading";
+import { useIsMounted } from "@/hooks/use-is-mounted";
 import { useResponsive } from "@/hooks/use-responsive";
+import { useState } from "react";
+import { ChangeFont } from "./components/ChangeFont";
 import { ChangePassword } from "./components/ChangePassword";
+import { ChangeTheme } from "./components/ChangeTheme";
 
 enum Tabs {
   ColorTheme = "Color Theme",
@@ -21,6 +23,11 @@ const TAB_COMPONENTS = {
 export default function SettingsPage() {
   const { isDesktop } = useResponsive();
   const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.ColorTheme);
+  const isMounted = useIsMounted();
+
+  if (!isMounted) {
+    return <Loading />;
+  }
 
   const ActiveComponent = isDesktop ? TAB_COMPONENTS[selectedTab] : null;
 

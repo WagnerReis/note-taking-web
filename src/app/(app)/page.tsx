@@ -1,6 +1,7 @@
 "use client";
 import { SidebarAllNotes } from "@/app/(app)/components/SidebarAllNotes";
 import { AuthProvider } from "@/components/auth-provider";
+import { Loading } from "@/components/Loading";
 import { useAuth } from "@/hooks/use-auth";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useNotesStore } from "@/store/notes/useNotesStore";
@@ -29,6 +30,10 @@ export default function HomePage() {
       }
     }
   }, [isAuthenticated, isLoading, router]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <AuthProvider>

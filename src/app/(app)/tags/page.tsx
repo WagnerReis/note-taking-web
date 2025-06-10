@@ -17,7 +17,6 @@ export default function TagsPage() {
     "Travel",
     "Typescript",
   ];
-
   return (
     <div className="px-200 md:px-300 mt-250 md:mt-300">
       <Preset1 className="text-neutral-950 dark:text-white">Tags</Preset1>

@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useApi } from "./use-api";
 
 interface User {
   id: string;
   email: string;
-  // name: string
 }
 
 interface LoginCredentials {
@@ -93,6 +92,7 @@ export function useAuth() {
   return {
     user,
     isLoading,
+    setIsLoading,
     isAuthenticated,
     login,
     logout,

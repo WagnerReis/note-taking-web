@@ -1,4 +1,5 @@
 "use client";
+import { Loading } from "@/components/Loading";
 import { useIsMounted } from "@/hooks/use-is-mounted";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useNotesStore } from "@/store/notes/useNotesStore";
@@ -19,7 +20,7 @@ export function SidebarAllNotes() {
   const isSmallScreen = isMobile || isTablet;
 
   if (!isMounted) {
-    return null;
+    return <Loading />;
   }
 
   function handleOpenCreateNote() {
