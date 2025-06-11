@@ -29,15 +29,19 @@ export function Toast({ toast, onRemove }: ToastProps) {
     <div
       className={cn(
         "flex w-full max-w-sm items-center gap-3 rounded-lg border p-2 shadow-lg",
-        "transform transition-all duration-300 ease-in-out",
+        "transform transition-all duration-300 ease-out",
         "border-neutral-200 bg-white text-neutral-950 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white",
         "hover:shadow-xl",
+        toast.exiting ? "animate-slide-out-right" : "animate-slide-in-right",
       )}
       role="alert"
       aria-live="assertive"
     >
       <Icon
-        className={cn("mt-0.5 h-5 w-5 flex-shrink-0", iconStyles[toast.type])}
+        className={cn(
+          "mt-0.5 h-5 w-5 flex-shrink-0",
+          toast.type === "success" ? "text-green-600" : "text-red-600",
+        )}
         weight="fill"
       />
 

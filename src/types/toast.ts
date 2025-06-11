@@ -8,11 +8,12 @@ export interface Toast {
   duration?: number;
   createdAt: Date;
   linkAction?: () => void;
+  exiting?: boolean;
 }
 
 export interface ToastContextType {
   toasts: Toast[];
-  addToast: (toast: Omit<Toast, "id" | "createdAt">) => void;
+  addToast: (toast: Omit<Toast, "id" | "createdAt" | "exiting">) => void;
   removeToast: (id: string) => void;
   clearToasts: () => void;
 }
