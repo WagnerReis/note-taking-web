@@ -13,7 +13,8 @@ import { Note } from "./Note";
 
 export function SidebarAllNotes() {
   const { isDesktop, isMobile, isTablet } = useResponsive();
-  const { notes, selectedNote, setSelectedNote, setView, isArchived } = useNotesStore();
+  const { notes, selectedNote, setSelectedNote, setView, isArchived } =
+    useNotesStore();
   const isMounted = useIsMounted();
   const router = useRouter();
 
@@ -50,7 +51,8 @@ export function SidebarAllNotes() {
       {!notes.length && !isArchived && (
         <div className="rounded-8 mt-4 border border-neutral-200 bg-neutral-100 p-2 dark:border-neutral-700 dark:bg-neutral-800">
           <Preset5>
-            You don’t have any notes yet. Start a new note to capture your thoughts and ideas.
+            You don’t have any notes yet. Start a new note to capture your
+            thoughts and ideas.
           </Preset5>
         </div>
       )}
@@ -59,13 +61,15 @@ export function SidebarAllNotes() {
         <div>
           <div className="rounded-8 mt-4 p-2">
             <Preset5>
-              All your archived notes are stored here. You can restore or delete them anytime.
+              All your archived notes are stored here. You can restore or delete
+              them anytime.
             </Preset5>
           </div>
 
-          <div className="rounded-8 mt-4 border border-neutral-200 bg-neutral-100 p-2 dark:border-neutral-700 dark:bg-neutral-800 underline-offset-3">
+          <div className="rounded-8 mt-4 border border-neutral-200 bg-neutral-100 p-2 underline-offset-3 dark:border-neutral-700 dark:bg-neutral-800">
             <Preset5>
-              No notes have been archived yet. Move notes here for safekeeping, or <span className="underline">create a new note</span>.
+              No notes have been archived yet. Move notes here for safekeeping,
+              or <span className="underline">create a new note</span>.
             </Preset5>
           </div>
         </div>
