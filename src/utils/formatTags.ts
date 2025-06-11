@@ -3,4 +3,4 @@ export function formatTags(tags: string) {
     .split(",")
     .map((tag) => tag.trim())
     .filter(Boolean);
-};
+}

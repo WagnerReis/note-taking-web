@@ -1,6 +1,7 @@
 "use client";
 import { SidebarAllNotes } from "@/app/(app)/components/SidebarAllNotes";
 import { AuthProvider } from "@/components/auth-provider";
+import { Loading } from "@/components/Loading";
 import { useAuth } from "@/hooks/use-auth";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useNotesStore } from "@/store/notes/useNotesStore";
@@ -9,7 +10,6 @@ import { useEffect } from "react";
 import { NoteContent } from "./components/NoteContent";
 import { SidebarRight } from "./components/SidebarRight";
 import NewNotePage from "./notes/new/page";
-
 
 export default function HomePage() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -31,13 +31,21 @@ export default function HomePage() {
     }
   }, [isAuthenticated, isLoading, router]);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <AuthProvider>
       <div className="flex">
-        <SidebarAllNotes/>
+        <SidebarAllNotes />
         {isDesktop && (
           <>
-            {selectedNote || view === "show" ? <NoteContent /> : <NewNotePage />}
+            {selectedNote || view === "show" ? (
+              <NoteContent />
+            ) : (
+              <NewNotePage />
+            )}
             {selectedNote && <SidebarRight />}
           </>
         )}

@@ -1,14 +1,15 @@
 "use client";
+import { Tag } from "@/components/ui/icons/tag";
 import { useResponsive } from "@/hooks/use-responsive";
-import { Logo } from "../../ui/icons/logo";
-import { Home } from "../../ui/icons/home";
-import { Archive } from "../../ui/icons/archive";
-import { Divider } from "../../ui/divider";
+import { useNotesStore } from "@/store/notes/useNotesStore";
+import Link from "next/link";
 import { useCallback, useState } from "react";
 import { Preset4 } from "../../Typography";
-import { Tag } from "@/components/ui/icons/tag";
+import { Divider } from "../../ui/divider";
+import { Archive } from "../../ui/icons/archive";
+import { Home } from "../../ui/icons/home";
+import { Logo } from "../../ui/icons/logo";
 import { SidebarItem } from "./SidebarItem";
-import Link from "next/link";
 
 const TAGS_MOCK = [
   "Cooking",
@@ -27,10 +28,12 @@ const navItems = [
   {
     icon: <Home />,
     label: "All Notes",
+    status: "active",
   },
   {
     icon: <Archive />,
     label: "Archived Notes",
+    status: "archived",
   },
 ];
 
@@ -38,10 +41,15 @@ export function Sidebar() {
   const [selectedNav, setSelectedNav] = useState("All Notes");
   const [selectedTag, setSelectedTag] = useState("");
   const { isDesktop } = useResponsive();
+  const { fetchNotes } = useNotesStore();
 
-  const handleNavClick = useCallback((label: string) => {
-    setSelectedNav(label);
-  }, []);
+  const handleNavClick = useCallback(
+    (label: string, status: "active" | "archived") => {
+      setSelectedNav(label);
+      fetchNotes(status);
+    },
+    [fetchNotes],
+  );
 
   const handleTagClick = useCallback((tag: string) => {
     setSelectedTag(tag);
@@ -74,7 +82,12 @@ export function Sidebar() {
                   label={item.label}
                   isMobile={false}
                   isActive={item.label === selectedNav}
-                  onActive={() => handleNavClick(item.label)}
+                  onActive={() =>
+                    handleNavClick(
+                      item.label,
+                      item.status as "active" | "archived",
+                    )
+                  }
                 />
               ))}
             </nav>

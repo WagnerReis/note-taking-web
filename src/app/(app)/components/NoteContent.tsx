@@ -10,12 +10,9 @@ export function NoteContent() {
     return null;
   }
 
-
-  // console.log("render", note)
-
   async function onSubmit(data: NoteFormData) {
     const tagsArray = formatTags(data.tags);
-    
+
     await updateNote({
       id: note?.id,
       ...data,
@@ -23,7 +20,5 @@ export function NoteContent() {
     });
   }
 
-  return (
-    <NoteForm onSubmit={onSubmit} />
-  );
+  return <NoteForm onSubmit={onSubmit} />;
 }

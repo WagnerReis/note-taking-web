@@ -1,9 +1,8 @@
 "use client";
+import { Loading } from "@/components/Loading";
 import { useIsMounted } from "@/hooks/use-is-mounted";
 import { useResponsive } from "@/hooks/use-responsive";
-import {
-  useNotesStore
-} from "@/store/notes/useNotesStore";
+import { useNotesStore } from "@/store/notes/useNotesStore";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { Preset1, Preset5 } from "../../../components/Typography";
@@ -14,28 +13,28 @@ import { Note } from "./Note";
 
 export function SidebarAllNotes() {
   const { isDesktop, isMobile, isTablet } = useResponsive();
-  const { notes, selectedNote, setSelectedNote, setView } = useNotesStore();
+  const { notes, selectedNote, setSelectedNote, setView, isArchived } = useNotesStore();
   const isMounted = useIsMounted();
   const router = useRouter();
 
   const isSmallScreen = isMobile || isTablet;
 
   if (!isMounted) {
-    return null;
+    return <Loading />;
   }
 
   function handleOpenCreateNote() {
-    setSelectedNote(null)
-    setView("create")
+    setSelectedNote(null);
+    setView("create");
     if (isSmallScreen) {
-      router.push("/notes/new")
+      router.push("/notes/new");
     }
   }
 
   return (
     <div
       className={twMerge(
-        "h-[calc(100vh-5.0625rem)] p-200 lg:border-r lg:border-neutral-200 lg:p-250 dark:border-neutral-800 overflow-auto",
+        "h-[calc(100vh-5.0625rem)] overflow-auto p-200 lg:border-r lg:border-neutral-200 lg:p-250 dark:border-neutral-800",
         isDesktop && "max-w-[272px] min-w-[272px]",
         isSmallScreen && "w-full",
       )}
@@ -48,12 +47,27 @@ export function SidebarAllNotes() {
 
       {isSmallScreen && <Preset1>All Notes</Preset1>}
 
-      {!notes.length && (
+      {!notes.length && !isArchived && (
         <div className="rounded-8 mt-4 border border-neutral-200 bg-neutral-100 p-2 dark:border-neutral-700 dark:bg-neutral-800">
           <Preset5>
-            You don’t have any notes yet. Start a new note to capture your
-            thoughts and ideas
+            You don’t have any notes yet. Start a new note to capture your thoughts and ideas.
           </Preset5>
+        </div>
+      )}
+
+      {!notes.length && isArchived && (
+        <div>
+          <div className="rounded-8 mt-4 p-2">
+            <Preset5>
+              All your archived notes are stored here. You can restore or delete them anytime.
+            </Preset5>
+          </div>
+
+          <div className="rounded-8 mt-4 border border-neutral-200 bg-neutral-100 p-2 dark:border-neutral-700 dark:bg-neutral-800 underline-offset-3">
+            <Preset5>
+              No notes have been archived yet. Move notes here for safekeeping, or <span className="underline">create a new note</span>.
+            </Preset5>
+          </div>
         </div>
       )}
 
@@ -78,10 +92,11 @@ export function SidebarAllNotes() {
       </div>
 
       {isSmallScreen && (
-        <button className={twMerge(
-          "absolute right-4 bottom-[72px] flex h-[3rem] w-[3rem] items-center justify-center",
-          "rounded-full bg-blue-500 md:right-8 md:bottom-[106px] md:h-[4rem] md:w-[4rem]"
-        )}
+        <button
+          className={twMerge(
+            "absolute right-4 bottom-[72px] flex h-[3rem] w-[3rem] items-center justify-center",
+            "rounded-full bg-blue-500 md:right-8 md:bottom-[106px] md:h-[4rem] md:w-[4rem]",
+          )}
           onClick={handleOpenCreateNote}
         >
           <Plus className="folt-bold h-6 w-6 text-white dark:text-white" />

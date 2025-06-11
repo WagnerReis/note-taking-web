@@ -3,6 +3,7 @@ import { Preset1, Preset5 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { CircleClock } from "@/components/ui/icons/circle-clock";
+import { Loading } from "@/components/ui/icons/loading";
 import { Tag } from "@/components/ui/icons/tag";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useNotesStore } from "@/store/notes/useNotesStore";
@@ -23,18 +24,23 @@ const noteFormSchema = z.object({
 export type NoteFormData = z.infer<typeof noteFormSchema>;
 
 interface NoteFormProps {
-  onSubmit: (data: NoteFormData) => Promise<void>
+  onSubmit: (data: NoteFormData) => Promise<void>;
 }
 
 export function NoteForm({ onSubmit }: NoteFormProps) {
-  const { selectedNote: note, setSelectedNote } = useNotesStore();
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<NoteFormData>({
+  const { selectedNote: note, setSelectedNote, isArchived } = useNotesStore();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<NoteFormData>({
     resolver: zodResolver(noteFormSchema),
     defaultValues: {
       title: note?.title || "",
       tags: note?.tags.join(", ") || "",
       content: note?.content || "",
-    }
+    },
   });
 
   useEffect(() => {
@@ -73,8 +79,9 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
           type="text"
           placeholder="Enter a title…"
           {...register("title")}
-          className={twMerge(getInputStyle(9),
-            "placeholder:text-neutral-950 dark:placeholder:text-white"
+          className={twMerge(
+            getInputStyle(9),
+            "placeholder:text-neutral-950 dark:placeholder:text-white",
           )}
         />
       </Preset1>
@@ -85,26 +92,42 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
           <Preset5 className="ml-1.5 inline min-w-[115px] text-neutral-700 dark:text-neutral-300">
             Tags
           </Preset5>
-          <Preset5 className="text-neutral-950 dark:text-white w-full">
+          <Preset5 className="w-full text-neutral-950 dark:text-white">
             <input
               type="text"
               placeholder="Add tags separated by commas (e.g. Work, Planning)"
               {...register("tags")}
-              className={twMerge(getInputStyle(5),
-                "text-neutral-400 rounded-4"
+              className={twMerge(
+                getInputStyle(5),
+                "rounded-4 text-neutral-400",
               )}
             />
           </Preset5>
         </div>
+
+        {isArchived && (
+          <div className="flex h-[26px] items-center">
+            <Loading className="h-4 w-4" />
+            <Preset5 className="ml-1.5 inline w-[115px] text-neutral-700 dark:text-neutral-300">
+              Status
+            </Preset5>
+            <Preset5 className="text-neutral-950 dark:text-white">
+              Archived
+            </Preset5>
+          </div>
+        )}
 
         <div className="flex h-[26px] items-center">
           <CircleClock className="h-4 w-4" />
           <Preset5 className="ml-1.5 inline w-[115px] text-neutral-700 dark:text-neutral-300">
             Last edited
           </Preset5>
-          <Preset5 className={twMerge("text-neutral-700 dark:text-neutral-300",
-            !note?.updatedAt && "text-neutral-400"
-          )}>
+          <Preset5
+            className={twMerge(
+              "text-neutral-700 dark:text-neutral-300",
+              !note?.updatedAt && "text-neutral-400",
+            )}
+          >
             {note?.updatedAt ? formatDate(note?.updatedAt) : "Not yet saved"}
           </Preset5>
         </div>
@@ -122,9 +145,14 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
 
       {errors && (
         <Preset5 className="flex gap-1 text-red-400">
-          {(Object.keys(errors) as Array<keyof typeof errors>).map((key, index) => (
-            <div key={key}>{errors[key]?.message}{index !== Object.keys(errors).length - 1 ? "," : "."}</div>
-          ))}
+          {(Object.keys(errors) as Array<keyof typeof errors>).map(
+            (key, index) => (
+              <div key={key}>
+                {errors[key]?.message}
+                {index !== Object.keys(errors).length - 1 ? "," : "."}
+              </div>
+            ),
+          )}
         </Preset5>
       )}
 
@@ -149,5 +177,5 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
         </div>
       )}
     </form>
-  )
+  );
 }

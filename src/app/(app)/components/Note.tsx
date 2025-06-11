@@ -1,7 +1,10 @@
 "use client";
 import { Preset3, Preset6 } from "@/components/Typography";
 import { useResponsive } from "@/hooks/use-responsive";
-import { Note as NoteInterface, useNotesStore } from "@/store/notes/useNotesStore";
+import {
+  Note as NoteInterface,
+  useNotesStore,
+} from "@/store/notes/useNotesStore";
 import { formatDate } from "@/utils/formatDate";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -12,7 +15,7 @@ export interface NoteProps {
   note: NoteInterface;
 }
 
-export function Note({ note, }: NoteProps) {
+export function Note({ note }: NoteProps) {
   const { isSmallScreen } = useResponsive();
   const { selectedNote, setSelectedNote } = useNotesStore();
   const ref = useRef<HTMLDivElement>(null);
@@ -66,22 +69,22 @@ export function Note({ note, }: NoteProps) {
     <div
       onClick={handleNoteClick}
       className={twMerge(
-        "rounded-6 flex w-full flex-col gap-3 p-2 cursor-pointer",
+        "rounded-6 flex w-full cursor-pointer flex-col gap-3 p-2",
         selectedNote?.id === note.id && "bg-neutral-100 dark:bg-neutral-800",
       )}
     >
       <Preset3 className="text-neutral-950 dark:text-white">
         {note.title}
       </Preset3>
-      <div 
+      <div
         ref={ref}
         className={twMerge(
           "flex gap-2 overflow-x-scroll select-none",
-          isDragging ? "cursor-grabbing" : "cursor-grab"
+          isDragging ? "cursor-grabbing" : "cursor-grab",
         )}
-        style={{ 
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
         }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}

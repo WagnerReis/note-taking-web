@@ -18,8 +18,9 @@ interface NotesState {
   error: string | null;
   selectedNote: Note | null;
   view: "show" | "create";
+  isArchived: boolean;
   setView: (view: "show" | "create") => void;
-  fetchNotes: () => Promise<void>;
+  fetchNotes: (status?: "active" | "archived") => Promise<void>;
   setSelectedNote: (note: Note | null) => void;
   addNote: (
     note: Omit<Note, "id" | "createdAt" | "updatedAt">,
@@ -27,7 +28,7 @@ interface NotesState {
   updateNote: (note: Partial<Note>) => Promise<void>;
   removeNote: (noteId: string) => Promise<void>;
   archiveNote: (noteId: string) => Promise<void>;
-  unarchiveNote: (noteId: string) => Promise<void>;
+  restoreNote: (noteId: string) => Promise<void>;
   searchNotes: (query: string) => Promise<void>;
 }
 
@@ -39,12 +40,20 @@ export const useNotesStore = create<NotesState>()(
       loading: false,
       error: null,
       view: "show",
+      isArchived: false,
       setView: (view: "show" | "create") => set({ view }),
 
-      fetchNotes: async () => {
+      fetchNotes: async (status = "active") => {
         set({ loading: true, error: null });
+
+        if (status === "archived") {
+          set({ isArchived: true });
+        } else {
+          set({ isArchived: false });
+        }
+
         try {
-          const response = await apiClient.get("/notes");
+          const response = await apiClient.get(`/notes?status=${status}`);
 
           if (!response.ok) {
             throw new Error("Error on fetch notes");
@@ -158,9 +167,31 @@ export const useNotesStore = create<NotesState>()(
             loading: false,
           });
         }
-      },     
-      
-      unarchiveNote: async () => {},
+      },
+
+      restoreNote: async (noteId: string) => {
+        set({ loading: true, error: null });
+        try {
+          const response = await apiClient.patch(`/notes/${noteId}/activate`);
+
+          if (!response.ok) {
+            throw new Error("Error on restore note");
+          }
+
+          set((state) => ({
+            notes: state.notes.filter((note) => note.id !== noteId),
+            selectedNote:
+              state.selectedNote?.id === noteId ? null : state.selectedNote,
+            loading: false,
+          }));
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : "unknown error",
+            loading: false,
+          });
+        }
+      },
+
       searchNotes: async () => {},
     }),
     {
