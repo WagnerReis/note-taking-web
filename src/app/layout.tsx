@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
-import { CustomThemeProvider } from "@/providers/custom-theme-provider";
-import { inter, notoSerif, sourceCodePro } from "./fonts";
-import ThemeToggle from "@/components/ThemeToggle";
-import "./globals.css";
-import { FontProvider } from "@/contexts/font-context";
 import { MenuBar } from "@/components/navigation/menu-bar/MenuBar";
+import ThemeToggle from "@/components/ThemeToggle";
+import { Toaster } from "@/components/ui/toaster";
+import { FontProvider } from "@/contexts/font-context";
+import { ToastProvider } from "@/contexts/ToastContext";
+import { CustomThemeProvider } from "@/providers/custom-theme-provider";
+import type { Metadata } from "next";
+import { inter, notoSerif, sourceCodePro } from "./fonts";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Note Taking App",
@@ -25,10 +27,13 @@ export default function RootLayout({
       <body>
         <CustomThemeProvider>
           <FontProvider>
-            <main className="flex h-screen">{children}</main>
-            <MenuBar />
-            {/* Just to test */}
-            <ThemeToggle />
+            <ToastProvider>
+              <main className="flex h-screen">{children}</main>
+              <MenuBar />
+              {/* Just to test */}
+              <ThemeToggle />
+              <Toaster />
+            </ToastProvider>
           </FontProvider>
         </CustomThemeProvider>
       </body>
