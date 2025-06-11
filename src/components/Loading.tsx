@@ -2,10 +2,10 @@ import { useTheme } from "next-themes";
 import { SyncLoader } from "react-spinners";
 
 export function Loading() {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="flex h-screen w-full items-center justify-center">
       <SyncLoader
         color={theme === "dark" ? "#fff" : "#0e121b"}
         loading={true}
@@ -15,5 +15,5 @@ export function Loading() {
         data-testid="loader"
       />
     </div>
-  )
+  );
 }

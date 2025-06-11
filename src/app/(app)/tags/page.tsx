@@ -18,22 +18,22 @@ export default function TagsPage() {
     "Typescript",
   ];
   return (
-    <div className="px-200 md:px-300 mt-250 md:mt-300">
+    <div className="mt-250 px-200 md:mt-300 md:px-300">
       <Preset1 className="text-neutral-950 dark:text-white">Tags</Preset1>
       <div className="mt-2 flex flex-col">
         {TAGS_MOCK.map((tag, index) => {
           const isTagSelected = false;
           return (
             <div key={tag}>
-            <SidebarItem
-              icon={<Tag />}
-              label={tag}
-              isMobile={false}
-              isActive={isTagSelected}
-              onActive={() =>console.log(tag)}
+              <SidebarItem
+                icon={<Tag />}
+                label={tag}
+                isMobile={false}
+                isActive={isTagSelected}
+                onActive={() => console.log(tag)}
               />
 
-            {index !== TAGS_MOCK.length - 1 && <Divider />}
+              {index !== TAGS_MOCK.length - 1 && <Divider />}
             </div>
           );
         })}
