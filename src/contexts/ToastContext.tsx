@@ -56,7 +56,7 @@ export function ToastProvider({
 
       // Auto remove toast after duration
       if (toast.duration !== 0) {
-        const duration = toast.duration ?? 5000;
+        const duration = toast.duration ?? 3000;
         setTimeout(() => {
           removeToast(id);
         }, duration);

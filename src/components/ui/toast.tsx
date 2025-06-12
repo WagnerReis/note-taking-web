@@ -51,8 +51,8 @@ export function Toast({ toast, onRemove }: ToastProps) {
 
       {toast.link && toast.linkAction && (
         <button
-          className="underline-offset-3"
-          onClick={() => toast.linkAction?.()}
+          className="cursor-custom underline-offset-3"
+          onClick={() => toast.linkAction && toast.linkAction()}
         >
           <Preset6 className="underline">{toast.link}</Preset6>
         </button>
