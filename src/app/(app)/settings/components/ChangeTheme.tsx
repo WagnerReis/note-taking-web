@@ -1,16 +1,18 @@
 "use client";
-import { Sun } from "@/components/ui/icons/sun";
 import { DarkMode } from "@/components/ui/icons/dark-mode";
 import { LightMode } from "@/components/ui/icons/light-mode";
-import { useTheme } from "next-themes";
-import { PreferenceSelector, OptionProps } from "./PreferenceSelector";
+import { Sun } from "@/components/ui/icons/sun";
 import { useIsMounted } from "@/hooks/use-is-mounted";
+import { useToaster } from "@/hooks/useToaster";
+import { useTheme } from "next-themes";
+import { OptionProps, PreferenceSelector } from "./PreferenceSelector";
 
 type ThemeType = "light" | "dark" | "system";
 
 export function ChangeTheme() {
   const { theme, setTheme } = useTheme();
   const isMounted = useIsMounted();
+  const { success } = useToaster();
 
   const options: OptionProps<ThemeType>[] = [
     {
@@ -41,7 +43,10 @@ export function ChangeTheme() {
       subtitle="Choose your color theme:"
       options={options}
       selected={theme as ThemeType}
-      onApply={(t) => setTheme(t)}
+      onApply={(t) => {
+        setTheme(t);
+        success("Settings updated successfully!");
+      }}
     />
   );
 }

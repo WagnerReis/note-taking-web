@@ -1,16 +1,18 @@
 "use client";
-import { PreferenceSelector, OptionProps } from "./PreferenceSelector";
-import { useIsMounted } from "@/hooks/use-is-mounted";
-import { useFont } from "@/contexts/font-context";
 import { Monospace } from "@/components/ui/icons/monospace";
-import { Serif } from "@/components/ui/icons/serif";
 import { SansSerif } from "@/components/ui/icons/sans-serif";
+import { Serif } from "@/components/ui/icons/serif";
+import { useFont } from "@/contexts/font-context";
+import { useIsMounted } from "@/hooks/use-is-mounted";
+import { useToaster } from "@/hooks/useToaster";
+import { OptionProps, PreferenceSelector } from "./PreferenceSelector";
 
 type FontType = "source" | "inter" | "noto";
 
 export function ChangeFont() {
   const { fontFamily, setFontFamily } = useFont();
   const isMounted = useIsMounted();
+  const { success } = useToaster();
 
   const options: OptionProps<FontType>[] = [
     {
@@ -41,7 +43,10 @@ export function ChangeFont() {
       subtitle="Choose your font theme:"
       options={options}
       selected={fontFamily as FontType}
-      onApply={(t) => setFontFamily(t)}
+      onApply={(t) => {
+        setFontFamily(t);
+        success("Settings updated successfully!");
+      }}
     />
   );
 }

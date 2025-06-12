@@ -6,6 +6,7 @@ import { CircleClock } from "@/components/ui/icons/circle-clock";
 import { Loading } from "@/components/ui/icons/loading";
 import { Tag } from "@/components/ui/icons/tag";
 import { useResponsive } from "@/hooks/use-responsive";
+import { useToaster } from "@/hooks/useToaster";
 import { useNotesStore } from "@/store/notes/useNotesStore";
 import { formatDate } from "@/utils/formatDate";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +30,7 @@ interface NoteFormProps {
 
 export function NoteForm({ onSubmit }: NoteFormProps) {
   const { selectedNote: note, setSelectedNote, isArchived } = useNotesStore();
+  const { success } = useToaster();
   const {
     register,
     handleSubmit,
@@ -165,6 +167,9 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
               text="Save note"
               className="w-[99px]"
               type="submit"
+              onClick={() => {
+                success("Note saved successfully!");
+              }}
             />
             <Button
               intent="tertiary"

@@ -3,13 +3,14 @@ import { Preset1, Preset4 } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft2 } from "@/components/ui/icons/arrow-left2";
 import { Input } from "@/components/ui/input";
-import { useResponsive } from "@/hooks/use-responsive";
-import { useRouter } from "next/navigation";
-import { twMerge } from "tailwind-merge";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useApi } from "@/hooks/use-api";
+import { useResponsive } from "@/hooks/use-responsive";
+import { useToaster } from "@/hooks/useToaster";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 
 const changePasswordFormSchema = z.object({
   oldPassword: z.string().min(8, "At least 8 characters"),
@@ -23,6 +24,7 @@ export function ChangePassword() {
   const { isDesktop } = useResponsive();
   const router = useRouter();
   const { post } = useApi();
+  const { success } = useToaster();
 
   const {
     register,
@@ -59,6 +61,7 @@ export function ChangePassword() {
       });
 
       reset();
+      success("Settings updated successfully!");
     } catch (error) {
       console.error(error);
     }
